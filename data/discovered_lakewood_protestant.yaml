@@ -1,0 +1,236 @@
+SUMMARY:
+  found: ~16 institutions
+  notes:
+    - "Lakewood Ranch ZIPs 34202/34211 often fall in Manatee County, not Sarasota — verify before including"
+    - "Bayside Community Church Lakewood Ranch campus is at 15800 SR-64, Bradenton — Manatee County, not Sarasota"
+    - "Some COG (Cleveland) entries have addresses near county line — verify"
+    - "Foursquare Church: NOT FOUND with confirmed Sarasota County street address"
+  partial:
+    - "Some Nokomis & Lakewood Ranch addresses missing leader names, phone, lat/lng"
+
+lakewood_ranch:
+  - name: "Grace Community Church – Lakewood Ranch Campus"
+    tradition: Christianity
+    denomination: "Non-denominational Evangelical"
+    address: "4080 Lakewood Ranch Blvd N"
+    city: "Lakewood Ranch"
+    zip: "34240"
+    county: "Sarasota"
+    website: "https://gracecommunity.us/"
+    notes: "ZIP 34240 falls in Sarasota County."
+    sources:
+      - "https://www.yelp.com/biz/grace-community-church-lakewood-ranch-2"
+
+  - name: "Faith Life Church"
+    tradition: Christianity
+    denomination: "Non-denominational / Word of Faith"
+    address: "6980 Professional Pkwy E"
+    city: "Sarasota"
+    zip: "34240"
+    county: "Sarasota"
+    notes: "Lakewood Ranch suburb area, Sarasota County side."
+    sources:
+      - "https://faith-life-church-1.wheree.com/"
+
+  - name: "Bayside Community Church – Lakewood Ranch Campus"
+    tradition: Christianity
+    denomination: "Non-denominational Evangelical"
+    address: "15800 State Road 64 E"
+    city: "Bradenton"
+    zip: "34211"
+    county: "Manatee"
+    phone: "(941) 755-8600"
+    website: "https://www.mybayside.church/campuses/lakewood-ranch-campus"
+    notes: "EXCLUDE — Manatee County despite 34211 ZIP."
+    sources:
+      - "https://www.mybayside.church/campuses/lakewood-ranch-campus"
+
+osprey:
+  - name: "Church of the Holy Spirit"
+    tradition: Christianity
+    denomination: "Episcopal"
+    sub_denomination: "Diocese of Southwest Florida"
+    address: "129 South Tamiami Trail"
+    city: "Osprey"
+    zip: "34229"
+    county: "Sarasota"
+    phone: "(941) 966-1924"
+    website: "https://www.chsosprey.com/"
+    sources:
+      - "https://www.chsosprey.com/"
+
+  - name: "Our Lady of Mount Carmel Catholic Church"
+    tradition: Christianity
+    denomination: "Roman Catholic"
+    sub_denomination: "Diocese of Venice"
+    address: "425 S. Tamiami Trail"
+    city: "Osprey"
+    zip: "34229"
+    county: "Sarasota"
+    phone: "(941) 966-0807"
+    sources:
+      - "https://catholicchurch.directory/mass-times/fl_osprey_our-lady-of-mount-carmel"
+
+  - name: "Osprey Church of Christ"
+    tradition: Christianity
+    denomination: "Churches of Christ (a cappella)"
+    address: "406 Pennsylvania Ave"
+    city: "Osprey"
+    zip: "34229"
+    county: "Sarasota"
+    website: "https://ospreychurchofchrist.com/"
+    sources:
+      - "https://ospreychurchofchrist.com/"
+
+  - name: "First Baptist Church of Osprey"
+    tradition: Christianity
+    denomination: "Baptist (SBC)"
+    city: "Osprey"
+    zip: "34229"
+    county: "Sarasota"
+    phone: "(941) 966-2705"
+    website: "https://osprey.church/"
+    notes: "Mailing PO Box 808. Physical street address needs verification."
+    sources:
+      - "https://osprey.church/"
+
+nokomis:
+  - name: "First Baptist Church of Nokomis"
+    tradition: Christianity
+    denomination: "Baptist (SBC)"
+    city: "Nokomis"
+    zip: "34275"
+    county: "Sarasota"
+    notes: "Facebook-listed; address not yet captured."
+    sources:
+      - "https://www.facebook.com/FirstBaptistCNokomis/"
+
+  - name: "New Hope Christian Church"
+    tradition: Christianity
+    denomination: "Non-denominational Christian"
+    city: "Nokomis"
+    zip: "34275"
+    county: "Sarasota"
+    website: "https://www.nhccnokomis.com/"
+    sources:
+      - "https://www.nhccnokomis.com/"
+
+  - name: "Johnson Chapel Missionary Baptist Church"
+    tradition: Christianity
+    denomination: "Missionary Baptist (historically Black)"
+    address: "506 Church Street"
+    city: "Nokomis"
+    zip: "34275"
+    county: "Sarasota"
+    notes: "Historic Black Baptist congregation in Laurel/Nokomis area."
+    sources:
+      - "https://www.yellowpages.com/nokomis-fl/churches"
+
+  - name: "Mt. Zion Missionary Baptist Church"
+    tradition: Christianity
+    denomination: "Missionary Baptist (historically Black)"
+    address: "112 Wallace Street"
+    city: "Nokomis"
+    zip: "34275"
+    county: "Sarasota"
+    sources:
+      - "https://www.yellowpages.com/nokomis-fl/churches"
+
+  - name: "Calvary Chapel of Venice (Nokomis location)"
+    tradition: Christianity
+    denomination: "Calvary Chapel (non-denominational)"
+    address: "602 Albee Farm Road North"
+    city: "Nokomis"
+    zip: "34275"
+    county: "Sarasota"
+    sources:
+      - "https://www.yellowpages.com/nokomis-fl/churches"
+
+  - name: "Nokomis Christian Fellowship"
+    tradition: Christianity
+    denomination: "Non-denominational"
+    address: "727 Shore Road"
+    city: "Nokomis"
+    zip: "34275"
+    county: "Sarasota"
+    sources:
+      - "https://www.thejoyfm.com/directory/churches/147509697581/"
+
+missing_protestant_denominations:
+  - name: "First Congregational United Church of Christ"
+    tradition: Christianity
+    denomination: "United Church of Christ (UCC)"
+    address: "1031 S Euclid Ave"
+    city: "Sarasota"
+    zip: "34237"
+    county: "Sarasota"
+    phone: "(941) 953-7044"
+    website: "https://uccsarasota.com/"
+    leader: "Rev. Dr. Wesley D. Bixby"
+    notes: "Open & Affirming since 2001."
+    sources:
+      - "https://uccsarasota.com/"
+
+  - name: "St. Andrew United Church of Christ"
+    tradition: Christianity
+    denomination: "United Church of Christ (UCC)"
+    address: "6908 Beneva Rd"
+    city: "Sarasota"
+    county: "Sarasota"
+    phone: "(941) 922-7595"
+    website: "https://www.sarasotaucc.org/"
+    notes: "Just Peace, Open & Affirming."
+    sources:
+      - "https://www.sarasotaucc.org/"
+
+  - name: "First Christian Church (Disciples of Christ)"
+    tradition: Christianity
+    denomination: "Christian Church (Disciples of Christ)"
+    address: "7601 State Road 72"
+    city: "Sarasota"
+    county: "Sarasota"
+    phone: "(941) 922-4434"
+    sources:
+      - "https://disciples-of-christ-churches.cmac.ws/first-christian-church-disciples-of-christ/91/"
+
+  - name: "Beneva Christian Church (Disciples of Christ)"
+    tradition: Christianity
+    denomination: "Christian Church (Disciples of Christ)"
+    address: "4835 Beneva Rd"
+    city: "Sarasota"
+    county: "Sarasota"
+    sources:
+      - "https://www.joinmychurch.com/churches/Beneva-Christian-Church-Sarasota-Florida-United-States/194737"
+
+  - name: "Church of God of North Sarasota"
+    tradition: Christianity
+    denomination: "Church of God (Cleveland, TN) – Pentecostal"
+    address: "4090 Tallevast Road"
+    city: "Sarasota"
+    county: "Sarasota"
+    notes: "Tallevast Rd may straddle Sarasota/Manatee county line — verify."
+    sources:
+      - "https://www.churchangel.com/directory/listing/church-of-god-of-north-sarasota"
+
+  - name: "New Wine Worship Center"
+    tradition: Christianity
+    denomination: "Church of God (Cleveland, TN) – Pentecostal"
+    city: "Sarasota"
+    zip: "34243"
+    county: "Sarasota"
+    notes: "ZIP 34243 spans Sarasota/Manatee — verify."
+    sources:
+      - "https://www.faithstreet.com/church/new-wine-worship-center-sarasota-fl"
+
+  - name: "Victory Faith Assembly Church Of God In Christ"
+    tradition: Christianity
+    denomination: "Church of God in Christ (COGIC) – Pentecostal"
+    city: "Sarasota"
+    county: "Sarasota"
+    notes: "Address needs further lookup. Likely in historically Black Newtown neighborhood."
+    sources:
+      - "https://www.joinmychurch.com/churches/Victory-Faith-Assembly-Church-Of-God-In-Christ-Sarasota-Florida-United-States/356816"
+
+not_found:
+  - tradition: "Foursquare Church"
+    note: "No verified Foursquare congregation with confirmed Sarasota County street address. 'Sarasota Indonesian Foursquare Church' is registered in Parrish (Manatee County)."

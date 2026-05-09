@@ -1,0 +1,425 @@
+SUMMARY:
+  total_entries: 15 original + 5 discovered = 20
+  status_counts:
+    verified: 13
+    corrected: 1
+    online_only: 3
+    unverified: 0
+    likely_does_not_exist: 0
+    discovered: 5
+  observations: |
+    Most original entries verified as real businesses or established practitioners with
+    websites, Yelp pages, and Google Maps listings — not directory scrapes. Several psychics
+    (Rachel Norway, Michael Sue Scott, Carolan/Psychic Medium of SRQ, Masami/My Star Angels)
+    operate from residential/private addresses in Sarasota and primarily take phone/Zoom
+    appointments rather than walk-ins. Two were reclassified: Psychic Medium Valentina is
+    based in Clearwater (not Sarasota), Hestia Wellness is Tampa Bay/Palm Harbor-based, and
+    Cynthia Ann is in Bradenton (Manatee County). Pixie Dust confirmed moved from 1476 Main
+    St to 40 Sarasota Center Blvd (Unit 106). Discovered five additional real, long-established
+    Sarasota-area metaphysical/spiritual businesses — including the 1949-founded Sarasota
+    Center of Light (Spiritualist church lineage).
+
+entries:
+  - name: "Wild Ginger Apothecary"
+    status: verified
+    tradition: Alternative Spirituality
+    category: Metaphysical Shop
+    address: "6557 Superior Ave"
+    city: "Sarasota"
+    zip: "34231"
+    county: "Sarasota"
+    lat: 27.2589
+    lng: -82.5081
+    phone: "(941) 924-4754"
+    website: "https://www.wildgingerapothecary.com"
+    services:
+      - "Crystals & metaphysical retail"
+      - "Psychic, tarot, angel, numerology, astrology, oracle readings"
+      - "Yoga and event lounge"
+      - "CBD/herbal/aromatherapy retail"
+    notes: "Verified via Yelp, official site, Natural Awakenings article. Located in Gulf Gate Village."
+    sources:
+      - "https://www.wildgingerapothecary.com/"
+      - "https://www.yelp.com/biz/wild-ginger-apothecary-sarasota"
+
+  - name: "Pixie Dust SRQ"
+    status: corrected
+    tradition: Alternative Spirituality
+    category: Metaphysical Shop
+    address: "40 Sarasota Center Blvd, Unit 106"
+    city: "Sarasota"
+    zip: "34240"
+    county: "Sarasota"
+    lat: 27.3265
+    lng: -82.4341
+    phone: "(941) 366-6325"
+    website: "https://www.pixiedustsrq.com"
+    services:
+      - "Crystals, gemstones, tarot, candles, incense, smudging supplies"
+      - "Reiki & energy work"
+      - "Sound healing"
+      - "Intuitive/astrological readings"
+      - "Workshops and classes"
+    notes: "Moved from 1476 Main St (now closed per Yelp) to 40 Sarasota Center Blvd Unit 106 in 2024-2025."
+    sources:
+      - "https://www.pixiedustsrq.com"
+      - "https://www.yelp.com/biz/pixie-dust-metaphysical-boutique-sarasota"
+
+  - name: "Psychic Medium Rachel Norway"
+    status: verified
+    tradition: Alternative Spirituality
+    category: Psychic / Medium (Independent)
+    city: "Sarasota"
+    zip: "34231"
+    county: "Sarasota"
+    phone: "(941) 770-0027"
+    website: "https://www.connectionswithrachel.com"
+    email: "connectionswithrachel@gmail.com"
+    owner: "Rachel Norway"
+    services:
+      - "Psychic readings"
+      - "Mediumship"
+      - "Spiritual counseling"
+      - "Remote sessions via Zoom/FaceTime/phone"
+    notes: "Independent practitioner. By appointment only. Featured on Best Psychic Directory (Bob Olson). Founded Spirit World Radio on iHeartRadio. No public street address."
+    sources:
+      - "https://www.connectionswithrachel.com"
+
+  - name: "The Psychic Medium of SRQ"
+    status: verified
+    tradition: Alternative Spirituality
+    category: Psychic / Medium (Independent)
+    city: "Sarasota"
+    zip: "34232"
+    county: "Sarasota"
+    phone: "(941) 779-3971"
+    website: "https://www.carolancarey.com"
+    owner: "Carolan Carey"
+    services:
+      - "Psychic mediumship readings"
+      - "Phone and international readings"
+      - "Group readings"
+      - "Platform mediumship at area churches"
+    notes: "Established 2008. Hosts radio show 'In The Psychic Flow.' By appointment only."
+    sources:
+      - "https://www.carolancarey.com/"
+
+  - name: "Michael Sue Scott Intuitive Reader"
+    status: verified
+    tradition: Alternative Spirituality
+    category: Psychic / Tarot Reader (Independent)
+    address: "5641 Summer Side Ln"
+    city: "Sarasota"
+    zip: "34231"
+    county: "Sarasota"
+    lat: 27.2654
+    lng: -82.4977
+    phone: "(941) 525-1011"
+    website: "https://www.michaelsuescott.com"
+    owner: "Michael Sue Scott"
+    services:
+      - "Tarot readings"
+      - "Intuitive/clairsentient readings"
+      - "Remote Zoom sessions"
+    sources:
+      - "https://www.michaelsuescott.com/"
+
+  - name: "Vivian's Psychic Boutique"
+    status: verified
+    tradition: Alternative Spirituality
+    category: Psychic / Metaphysical Shop
+    address: "312 S Washington Blvd"
+    city: "Sarasota"
+    zip: "34236"
+    county: "Sarasota"
+    lat: 27.3354
+    lng: -82.5360
+    phone: "(954) 482-3845"
+    website: "http://www.vivianspsychicboutique.com"
+    owner: "Vivian"
+    services:
+      - "Psychic, tarot, palm, crystal ball readings"
+      - "Chakra balancing, aromatherapy"
+      - "Spiritual cleansing"
+      - "Astrology and pet readings"
+      - "Crystals and candles retail"
+    notes: "Brick-and-mortar in downtown Sarasota."
+    sources:
+      - "http://www.vivianspsychicboutique.com/"
+
+  - name: "Ask Psychic Cynthia Ann"
+    status: corrected
+    tradition: Alternative Spirituality
+    category: Psychic (Independent)
+    city: "Bradenton"
+    county: "Manatee"
+    owner: "Cynthia Davis (Cynthia Ann)"
+    services:
+      - "Psychic readings"
+      - "Spiritual guidance & healing"
+    notes: "Located in Bradenton (Manatee County), not Sarasota. Real practitioner but outside Sarasota County — exclude or mark regional."
+    sources:
+      - "https://www.facebook.com/askcynthiapsychic/"
+
+  - name: "My Star Angels"
+    status: verified
+    tradition: Alternative Spirituality
+    category: Psychic / Medium (Independent)
+    address: "2803 Fruitville Rd, Ste 131"
+    city: "Sarasota"
+    zip: "34237"
+    county: "Sarasota"
+    lat: 27.3370
+    lng: -82.5102
+    phone: "(941) 275-7966"
+    website: "https://mystarangels.com"
+    email: "sami@mystarangels.com"
+    owner: "Masami"
+    services:
+      - "Psychic / mediumistic readings"
+      - "Animal communication"
+      - "Workshops and seasonal psychic fairs"
+      - "Skype/phone readings"
+    sources:
+      - "https://mystarangels.com/"
+
+  - name: "Psychic Medium Valentina"
+    status: online_only
+    tradition: Alternative Spirituality
+    category: Psychic / Medium (Independent)
+    city: "Clearwater"
+    zip: "33759"
+    county: "Pinellas"
+    phone: "(727) 342-0311"
+    website: "https://www.psychicmediumvalentina.com"
+    owner: "Valentina"
+    services:
+      - "Psychic readings"
+      - "Mediumship"
+      - "Reiki / chakra clearing"
+      - "Remote via Skype/FaceTime/photo"
+    notes: "Based in Clearwater, not Sarasota. No physical Sarasota presence — exclude or mark regional/online."
+    sources:
+      - "https://www.psychicmediumvalentina.com/"
+
+  - name: "Laura the Medium"
+    status: verified
+    tradition: Alternative Spirituality
+    category: Psychic / Medium (Independent)
+    city: "Sarasota"
+    county: "Sarasota"
+    phone: "(813) 727-6128"
+    website: "https://lauraathemedium.com"
+    owner: "Laura"
+    services:
+      - "Mediumship readings"
+      - "Psychic readings"
+      - "Spiritual cleansing"
+      - "Tarot card readings"
+      - "Spiritual healing"
+    notes: "Tampa-area phone (813); Sarasota service area. No public physical address."
+    sources:
+      - "https://www.yelp.com/biz/laura-the-medium-sarasota"
+
+  - name: "Hestia Wellness Psychic Services"
+    status: online_only
+    tradition: Alternative Spirituality
+    category: Psychic / Medium / Reiki (Independent)
+    city: "Palm Harbor"
+    county: "Pinellas"
+    website: "https://hestiawellnessllc.com"
+    email: "hestiawellnessllc@gmail.com"
+    owner: "Sarah Della Vedova"
+    services:
+      - "Evidential mediumship"
+      - "Psychic readings"
+      - "House clearings"
+      - "Psychic parties / galleries"
+      - "Reiki / sound healing"
+    notes: "Based in Tampa Bay. In-person at Celestial Circle Metaphysical Shop in Palm Harbor. Serves Sarasota remotely."
+    sources:
+      - "https://hestiawellnessllc.com/"
+
+  - name: "Logan Light Center"
+    status: verified
+    tradition: Alternative Spirituality (Modern Mystery School)
+    category: Spiritual Healing & Training Center
+    address: "4623 Oak Hill Terrace"
+    city: "Sarasota"
+    zip: "34232"
+    county: "Sarasota"
+    lat: 27.3242
+    lng: -82.4651
+    website: "https://www.loganlightcenter.com"
+    services:
+      - "Life Activation / Full Spirit Activation"
+      - "Aura healing, cord cutting, negative energy removal"
+      - "Crystal healing, tarot readings"
+      - "Modern Mystery School classes (Empower Thyself, Sacred Geometry, Astral Travel, Max Meditation System)"
+    notes: "Modern Mystery School lineage of King Salomon. Senior Guide in Florida."
+    sources:
+      - "https://www.loganlightcenter.com"
+
+  - name: "Center for Reiki Wellness and Past Life Regression"
+    status: verified
+    tradition: Alternative Spirituality
+    category: Reiki / Hypnosis Center
+    address: "352 Somerset Ave, Ste 111"
+    city: "Sarasota"
+    zip: "34243"
+    county: "Sarasota"
+    lat: 27.3920
+    lng: -82.5320
+    website: "https://www.centerforreikiwellness.com"
+    owner: "Cyndy Paxton"
+    services:
+      - "Usui/Tibetan Reiki sessions"
+      - "Reiki Master training"
+      - "Past Life Regression hypnosis"
+      - "Online and phone sessions"
+    sources:
+      - "https://www.centerforreikiwellness.com"
+
+  - name: "Intuitive Energy Healing by Pamela"
+    status: verified
+    tradition: Alternative Spirituality
+    category: Reiki / Energy Healing (Independent)
+    address: "7727B Holiday Dr"
+    city: "Sarasota"
+    zip: "34231"
+    county: "Sarasota"
+    lat: 27.2718
+    lng: -82.5180
+    phone: "(941) 323-3761"
+    website: "https://reikipam.wixsite.com/intuitiveenergy"
+    owner: "Pamela Parker"
+    services:
+      - "Reiki sessions (traditional Japanese Reiki)"
+      - "Energy healing with aromatherapy, crystals, sound vibrations"
+    notes: "20 years experience as Reiki Master."
+    sources:
+      - "https://reikipam.wixsite.com/intuitiveenergy"
+
+  - name: "The Shaman Central"
+    status: verified
+    tradition: Alternative Spirituality (Shamanism / Reiki)
+    category: Shamanic Healing / Reiki Center
+    address: "2055 Wood St"
+    city: "Sarasota"
+    zip: "34237"
+    county: "Sarasota"
+    lat: 27.3296
+    lng: -82.5260
+    phone: "(941) 928-4225"
+    website: "https://www.theshamancentral.com"
+    owner: "Eric Watrous"
+    services:
+      - "Private and group Reiki sessions"
+      - "Distance healing"
+      - "Personal spiritual protection"
+      - "Home clearing & cleansing"
+    notes: "Founded 2015."
+    sources:
+      - "https://www.theshamancentral.com/"
+
+  - name: "Sylvan Spirit Healing"
+    status: verified
+    tradition: Alternative Spirituality
+    category: Energy Healing / Reiki (Independent)
+    city: "Sarasota"
+    county: "Sarasota"
+    website: "https://sylvanspirithealing.wixsite.com/sylvanspirithealing"
+    owner: "Charles (Charlie) Logan"
+    services:
+      - "Energy healing (private and group)"
+      - "Guided meditations"
+      - "Reiki training"
+      - "Energetically charged personal-care products"
+    notes: "Serves Sarasota & Manatee counties. Practitioner-based; no public street address."
+    sources:
+      - "https://sylvanspirithealing.wixsite.com/sylvanspirithealing"
+
+discovered:
+  - name: "Sarasota Center of Light"
+    status: verified
+    tradition: Spiritualist / Metaphysical
+    category: Spiritualist Church
+    city: "Sarasota"
+    county: "Sarasota"
+    phone: "(941) 953-6620"
+    website: "https://www.sarasotacenteroflight.com"
+    email: "churchoffice@sarasotacenteroflight.com"
+    founded: 1949
+    services:
+      - "Sunday services"
+      - "Mediumship development classes"
+      - "Healing, meditation, spiritual law"
+      - "Workshops with visiting mediums"
+    notes: "Originally 'Shrine of the Master,' renamed 2010. Founded by Rev. Dorothy & Dr. Russell Flexer (1949)."
+    sources:
+      - "https://www.sarasotacenteroflight.com/"
+
+  - name: "Cosmic Center of Spiritual Light"
+    status: verified
+    tradition: Alternative Spirituality (Educational/Healing Ministry)
+    category: Spiritual Center / Healing Ministry
+    address: "5041 Ringwood Meadow, Bldg G-25"
+    city: "Sarasota"
+    zip: "34235"
+    county: "Sarasota"
+    lat: 27.3680
+    lng: -82.4519
+    phone: "(941) 371-9333"
+    website: "https://www.ccosl.com"
+    services:
+      - "Saturday Sabbath services"
+      - "Anchoring Light Transmission Meditation (Mondays via Zoom)"
+      - "Qigong classes"
+      - "Crystals, salt lamps, books, jewelry retail"
+    sources:
+      - "https://www.ccosl.com/"
+
+  - name: "The Spirit University"
+    status: verified
+    tradition: Alternative Spirituality (Spiritual Arts education)
+    category: Spiritual Learning / Mediumship Training
+    city: "Sarasota"
+    county: "Sarasota"
+    website: "https://thespirituniversity.com"
+    services:
+      - "Develop Your Intuition"
+      - "Mediumship Development"
+      - "Advanced Mediumship Development"
+      - "Personal transformation classes"
+    notes: "Established 2011."
+    sources:
+      - "https://thespirituniversity.com/"
+
+  - name: "The Higher Realm"
+    status: verified
+    tradition: Alternative Spirituality
+    category: Metaphysical Ministry / Spiritual Healing
+    city: "Sarasota"
+    county: "Sarasota"
+    website: "https://www.higherrealmsarasota.com"
+    owner: "Natalie & Matthew"
+    services:
+      - "Healings, readings, activations"
+      - "Higher Realm TV (conscious media network)"
+    sources:
+      - "https://www.higherrealmsarasota.com/"
+
+  - name: "Cypress Pillar Healing Arts"
+    status: verified
+    tradition: Alternative Spirituality (Acupuncture / Reiki / Tarot)
+    category: Holistic Healing Arts Center
+    city: "Sarasota"
+    county: "Sarasota"
+    website: "https://www.cypresspillar.com"
+    services:
+      - "Acupuncture, massage, herbalism"
+      - "Reiki sessions (Usui method)"
+      - "Reiki certification training"
+      - "Tarot, runes, and spiritual classes"
+    sources:
+      - "https://www.cypresspillar.com/"

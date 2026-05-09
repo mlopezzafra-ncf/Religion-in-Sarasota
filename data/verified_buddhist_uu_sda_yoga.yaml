@@ -1,0 +1,255 @@
+SUMMARY:
+  total_entries: 14
+  verified: 7
+  corrected: 4
+  out_of_county_or_nonexistent: 2 (Wat Lao Dhammavanno → Lee County; Thavma Yoga → Manatee County)
+  absent_in_county: 1 (Hindu temples — none in Sarasota County)
+  key_findings:
+    - "Wat Lao Dhammavanno is in NORTH FORT MYERS (Lee County), NOT Sarasota — exclude"
+    - "Thavma Yoga is in Lakewood Ranch/Bradenton (Manatee County) — exclude"
+    - "Sarasota SDA ZIP corrected from 34236 to 34241 (Churchill Downs Rd is south county, not downtown)"
+    - "Mount Sinai SDA address found: 3620 Leonard Reid Ave"
+    - "Sarasota Forest Monastery: Abbot Ajaan Chichung Dhammattho since April 2023, founded 2015"
+    - "Happy Monastery at 4101 S Lockwood Ridge Rd; Chua Linh Phong at 4884 Elizabeth Ave"
+    - "Sarasota Zen Center at 3131 Clark Rd (Soto Zen)"
+    - "UU Sarasota founded 1952, ~500 members, largest UU in Florida; Rev. Jay Wolin"
+
+institutions:
+
+  - name: "KMC Florida (Kadampa Meditation Center Florida)"
+    status: verified
+    tradition: Buddhism
+    denomination: "Kadampa (New Kadampa Tradition)"
+    address: "730 N Washington Blvd"
+    city: "Sarasota"
+    zip: "34236"
+    county: "Sarasota"
+    lat: 27.3461
+    lng: -82.5345
+    phone: "(941) 373-1600"
+    website: "https://meditationinsarasota.org"
+    email: "info@meditationinsarasota.org"
+    leader: "Gen Kelsang Lhadron"
+    leader_title: "Resident Teacher"
+    service_times: "Sun 11am-12:15pm; Tue 7-8:15pm; Mon/Wed 12:15-12:45pm; Fri 11am-12pm"
+    notes: "Affiliated with NKT-IKBU."
+    sources:
+      - "https://meditationinsarasota.org"
+
+  - name: "Sarasota Forest Monastery"
+    status: verified
+    tradition: Buddhism
+    denomination: "Theravada"
+    sub_denomination: "Thai Forest (Dhammayut Order)"
+    address: "520 Lewis Street"
+    city: "Englewood"
+    zip: "34223"
+    county: "Sarasota"
+    lat: 26.9617
+    lng: -82.3528
+    phone: "(914) 914-7504"
+    website: "https://sarasotaforestmonastery.org"
+    email: "SarasotaForestMonastery@gmail.com"
+    leader: "Ajaan Chichung Dhammattho"
+    leader_title: "Abbot"
+    founded: 2015
+    notes: "Abbot appointed April 2023 by Phra Ajaan Keng Khemako."
+    sources:
+      - "https://sarasotaforestmonastery.org/leadership"
+
+  - name: "Happy Monastery (Tu Viện Hạnh Phúc)"
+    status: verified
+    tradition: Buddhism
+    denomination: "Mahayana"
+    sub_denomination: "Vietnamese"
+    address: "4101 S Lockwood Ridge Rd"
+    city: "Sarasota"
+    zip: "34231"
+    county: "Sarasota"
+    lat: 27.2778
+    lng: -82.4906
+    phone: "(727) 455-3498"
+    website: "https://www.facebook.com/happymonastery/"
+    leader: "Thầy Thích Tâm Nguyên"
+    leader_title: "Abbot/Teacher"
+    sources:
+      - "https://www.facebook.com/happymonastery/"
+
+  - name: "Chua Linh Phong (Sarasota's Vietnamese Buddhist Temple)"
+    status: verified
+    tradition: Buddhism
+    denomination: "Mahayana"
+    sub_denomination: "Vietnamese"
+    address: "4884 Elizabeth Ave"
+    city: "Sarasota"
+    zip: "34233"
+    county: "Sarasota"
+    lat: 27.2722
+    lng: -82.4889
+    phone: "(941) 923-6742"
+    website: "http://www.chualinhphong.com/"
+    sources:
+      - "http://www.abuddhisttemple.org/teachings/2018/12/9/chua-linh-phong-sarasota-fl"
+
+  - name: "Sarasota Zen Center"
+    status: corrected
+    tradition: Buddhism
+    denomination: "Zen"
+    sub_denomination: "Soto Zen"
+    address: "3131 Clark Rd"
+    city: "Sarasota"
+    zip: "34231"
+    county: "Sarasota"
+    lat: 27.2828
+    lng: -82.5111
+    website: "https://sarasotazencenter.org/"
+    notes: "Address confirmed via Yelp/Tripadvisor; website intermittently unreachable."
+    sources:
+      - "https://www.yelp.com/biz/sarasota-zen-center-sarasota"
+
+  - name: "Wat Lao Dhammavanno"
+    status: out_of_county
+    tradition: Buddhism
+    denomination: "Theravada (Lao)"
+    address: "9851 Veronica Blvd"
+    city: "North Fort Myers"
+    zip: "33917"
+    county: "Lee"
+    notes: "EXCLUDE FROM SARASOTA DIRECTORY — located in Lee County. Nearest Lao temple to Sarasota is Wat Lao Mixayaram in St. Petersburg."
+    sources:
+      - "https://www.yelp.com/biz/wat-lao-dhammavanno-north-fort-myers"
+
+  - name: "Hindu Temples (Sarasota County)"
+    status: absent
+    tradition: Hinduism
+    notes: "No dedicated Hindu temple in Sarasota County. Nearest: Hindu Temple of Florida (Tampa). Sarasota Hindus typically travel to Tampa for worship."
+    sources:
+      - "https://htfl.org/"
+
+  - name: "Unitarian Universalists of Sarasota (UU Church of Sarasota)"
+    status: verified
+    tradition: "Unitarian Universalism"
+    denomination: "Unitarian Universalist Association (UUA)"
+    address: "3975 Fruitville Rd"
+    city: "Sarasota"
+    zip: "34232"
+    county: "Sarasota"
+    lat: 27.3414
+    lng: -82.4881
+    phone: "(941) 371-4974"
+    website: "https://uusrq.org"
+    leader: "Rev. Jay Wolin"
+    leader_title: "Minister"
+    founded: 1952
+    service_times: "Sundays 10:30 AM (in sanctuary + livestream)"
+    size_estimate: "~500 members; largest UU congregation in Florida"
+    notes: "Also hosts SRF Sarasota Meditation Circle."
+    sources:
+      - "https://uusrq.org"
+
+  - name: "Unitarian Universalist Congregation of Venice"
+    status: verified
+    tradition: "Unitarian Universalism"
+    denomination: "Unitarian Universalist Association (UUA)"
+    address: "1971 Pinebrook Rd"
+    city: "Venice"
+    zip: "34292"
+    county: "Sarasota"
+    lat: 27.1064
+    lng: -82.4117
+    phone: "(941) 485-2105"
+    website: "https://uucov.org"
+    leader: "Rev. Dr. Amy Petrie Shaw"
+    leader_title: "Minister"
+    service_times: "Sundays 10:00 AM (sanctuary + livestream)"
+    sources:
+      - "https://uucov.org"
+
+  - name: "Sarasota Seventh-day Adventist Church"
+    status: corrected
+    tradition: "Christianity"
+    denomination: "Seventh-day Adventist"
+    address: "5764 Churchill Downs Rd"
+    city: "Sarasota"
+    zip: "34241"
+    county: "Sarasota"
+    lat: 27.2483
+    lng: -82.4400
+    phone: "(941) 924-5797"
+    website: "https://sarasotasda.org"
+    email: "churchoffice@sarasotasda.org"
+    service_times: "Sabbath (Saturday) 11:00 AM (in-person + livestream)"
+    notes: "ZIP corrected from 34236 to 34241."
+    sources:
+      - "https://sarasotasda.org"
+
+  - name: "Mount Sinai Seventh-day Adventist Church"
+    status: corrected
+    tradition: "Christianity"
+    denomination: "Seventh-day Adventist"
+    address: "3620 Leonard Reid Ave"
+    city: "Sarasota"
+    zip: "34234"
+    county: "Sarasota"
+    lat: 27.3614
+    lng: -82.5258
+    phone: "(941) 351-5972"
+    website: "https://mtsinaisrq.com"
+    email: "info@mtsinaisrq.com"
+    service_times: "Sabbath School 10:00 AM; Divine Worship 10:45 AM (Saturdays)"
+    notes: "Address found (was missing in original). Streams on Facebook and YouTube."
+    sources:
+      - "https://mtsinaisrq.com"
+
+  - name: "The Wellness Space"
+    status: verified
+    tradition: "Yoga/Wellness"
+    address: "1561 Lakefront Drive, Unit 208"
+    city: "Sarasota"
+    zip: "34240"
+    county: "Sarasota"
+    lat: 27.3325
+    lng: -82.4108
+    phone: "(941) 900-8064"
+    website: "https://thewellness-space.com"
+    email: "info@thewellness-space.com"
+    service_times: "Schedule via momence.com booking"
+    notes: "Yoga, breathwork, meditation, sound healing, nutrition."
+    sources:
+      - "https://thewellness-space.com"
+
+  - name: "Dharma Yoga SRQ"
+    status: corrected
+    tradition: "Yoga/Wellness"
+    address: "7513 S Tamiami Trail"
+    city: "Sarasota"
+    zip: "34231"
+    county: "Sarasota"
+    lat: 27.2625
+    lng: -82.5142
+    phone: "(941) 702-0072"
+    website: "https://dharmayogasrq.com"
+    email: "dharmayogasrq@gmail.com"
+    leader: "Noelle and Jillian"
+    leader_title: "Instructors"
+    notes: "Boutique yoga studio. Address found (was missing)."
+    sources:
+      - "https://dharmayogasrq.com"
+
+  - name: "Thavma Yoga"
+    status: out_of_county
+    tradition: "Yoga/Wellness"
+    address: "1821 Lakewood Ranch Blvd"
+    city: "Bradenton"
+    zip: "34211"
+    county: "Manatee"
+    lat: 27.4214
+    lng: -82.3914
+    phone: "(941) 914-4538"
+    website: "https://thavmayoga.com"
+    email: "Thavmayoga@gmail.com"
+    leader: "Marina Bourantonis"
+    leader_title: "Owner/Founder"
+    notes: "EXCLUDE FROM SARASOTA DIRECTORY — located in Manatee County (Lakewood Ranch/Bradenton)."
+    sources:
+      - "https://thavmayoga.com"

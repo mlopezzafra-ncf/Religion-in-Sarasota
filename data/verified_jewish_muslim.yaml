@@ -1,0 +1,219 @@
+SUMMARY:
+  total_entries: 11
+  verified: 7
+  corrected: 3
+  unverified: 1 (catch-all for "no other county mosques")
+  key_findings:
+    - "Temple Beth Sholom is oldest synagogue (1927), not Temple Emanu-El (1956)"
+    - "Kol HaNeshama meets at Hershorin Schiff Community Day School, 4335 Wilkinson Rd"
+    - "Mayim Chayim physical address corrected to 8700 SR-72; facility currently temporarily closed per website"
+    - "TWO Chabad centers in Sarasota County: Chabad Lubavitch of Sarasota & Manatee (7700 Beneva), Chabad of Venice & North Port (Venice 34293)"
+    - "ISSB confirmed as only mosque in Sarasota County. Nur Academy co-located at same address."
+    - "'Bait Ul Naseer' Ahmadiyya mosque is in Hallandale Beach (Broward), NOT Sarasota — exclude"
+
+institutions:
+
+  - name: "Temple Emanu-El of Sarasota"
+    status: verified
+    tradition: Judaism
+    denomination: Reform
+    address: "151 McIntosh Rd"
+    city: "Sarasota"
+    zip: "34232"
+    county: "Sarasota"
+    lat: 27.3232
+    lng: -82.4892
+    phone: "(941) 371-2788"
+    website: "https://www.sarasotatemple.org"
+    leader: "Brenner Glickman"
+    leader_title: "Senior Rabbi"
+    founded: 1956
+    service_times: "Fri 7:15 PM Shabbat; Sat 11 AM Torah Study; monthly Sat 9:30 AM"
+    size_estimate: "Large (largest synagogue in region)"
+    notes: "Co-led with Rabbi Shefrin. URJ-affiliated."
+    sources:
+      - "https://www.sarasotatemple.org/"
+
+  - name: "Temple Sinai"
+    status: verified
+    tradition: Judaism
+    denomination: Reform
+    address: "4631 S Lockwood Ridge Rd"
+    city: "Sarasota"
+    zip: "34231"
+    county: "Sarasota"
+    lat: 27.2857
+    lng: -82.4836
+    phone: "(941) 924-1802"
+    website: "https://www.templesinai-sarasota.org"
+    email: "office@templesinai-sarasota.org"
+    leader: "Cliff Abramson"
+    leader_title: "Senior Clergy / Chazzan (since 2022)"
+    founded: 1991
+    service_times: "Friday evening Shabbat services"
+    notes: "Joined Reform movement 1995. Current building since Sept 2005."
+    sources:
+      - "https://www.templesinai-sarasota.org/contact"
+
+  - name: "Temple Beth Sholom"
+    status: verified
+    tradition: Judaism
+    denomination: Conservative
+    address: "1050 S Tuttle Ave, Bldg. 2"
+    city: "Sarasota"
+    zip: "34237"
+    county: "Sarasota"
+    lat: 27.3274
+    lng: -82.5215
+    phone: "(941) 955-8121"
+    website: "https://templebethsholomfl.org"
+    email: "info@tbssrq.org"
+    leader: "Stuart Altshuler"
+    leader_title: "Rabbi (Dr.)"
+    founded: 1927
+    service_times: "Fri 6:30 PM Kabbalat Shabbat; Sat 9:30 AM Shabbat (in-person + livestream)"
+    size_estimate: "~400 families"
+    notes: "Oldest synagogue in Sarasota. USCJ-affiliated since 1960."
+    sources:
+      - "https://templebethsholomfl.org/our-history"
+
+  - name: "Congregation Kol HaNeshama"
+    status: corrected
+    tradition: Judaism
+    denomination: Reconstructionist
+    address: "4335 Wilkinson Rd"
+    city: "Sarasota"
+    zip: "34233"
+    county: "Sarasota"
+    lat: 27.2862
+    lng: -82.4734
+    phone: "(941) 244-2042"
+    website: "https://khsarasota.org"
+    email: "mike.congkh@gmail.com"
+    leader: "Rabbi Sigal"
+    leader_title: "Rabbi (since 2023)"
+    service_times: "Fri 6:00 PM Kabbalat Shabbat; Sat 10:00 AM Shabbat"
+    notes: "Meets at Hershorin Schiff Community Day School, 4335 Wilkinson Rd. Mailing PO Box 21655 (ZIP 34276)."
+    sources:
+      - "https://khsarasota.org/"
+
+  - name: "Mayim Chayim Messianic Synagogue"
+    status: corrected
+    tradition: Judaism
+    denomination: Messianic
+    address: "8700 SR-72"
+    city: "Sarasota"
+    zip: "34241"
+    county: "Sarasota"
+    lat: 27.2731
+    lng: -82.3677
+    phone: "(941) 363-1820"
+    website: "https://www.mayimchayimfl.com"
+    email: "mayimchayimfl@gmail.com"
+    service_times: "Sat 11:30 AM (Yom Shabbat)"
+    notes: "Affiliated with Union of Messianic Jewish Congregations (UMJC). Website notes facility temporarily closed; phone/email active. Mailing 935 N Beneva Rd."
+    sources:
+      - "https://www.mayimchayimfl.com/contact-us"
+
+  - name: "Jewish Congregation of Venice"
+    status: verified
+    tradition: Judaism
+    denomination: Reform
+    address: "600 N Auburn Rd"
+    city: "Venice"
+    zip: "34292"
+    county: "Sarasota"
+    lat: 27.1042
+    lng: -82.4011
+    phone: "(941) 484-2022"
+    website: "https://jewishcongregationofvenice.org"
+    leader: "Marci Vitkus"
+    leader_title: "Rabbi"
+    founded: 1980
+    service_times: "Fri 7:30 PM Shabbat (in-person + Zoom)"
+    notes: "Founded 1980 as Venice Area Jewish Community Center; renamed JCV in 2011."
+    sources:
+      - "https://jewishcongregationofvenice.org/"
+
+  - name: "Chabad Lubavitch of Sarasota & Manatee Counties"
+    status: corrected
+    tradition: Judaism
+    denomination: "Orthodox (Chabad-Lubavitch / Hasidic)"
+    address: "7700 Beneva Rd"
+    city: "Sarasota"
+    zip: "34238"
+    county: "Sarasota"
+    lat: 27.2475
+    lng: -82.4760
+    phone: "(941) 925-0770"
+    website: "https://www.sarasotachabad.com"
+    email: "info@chabadofsarasota.com"
+    leader: "Chaim Steinmetz"
+    leader_title: "Rabbi (Director)"
+    notes: "Added to list — was missing from original. Note: separate Chabad of Downtown SRQ may also exist."
+    sources:
+      - "https://www.sarasotachabad.com/contact"
+
+  - name: "Chabad of Venice & North Port"
+    status: corrected
+    tradition: Judaism
+    denomination: "Orthodox (Chabad-Lubavitch / Hasidic)"
+    address: "21560 Angela Lane"
+    city: "Venice"
+    zip: "34293"
+    county: "Sarasota"
+    lat: 27.0590
+    lng: -82.3493
+    phone: "(941) 493-2770"
+    website: "https://www.chabadofvenice.com"
+    leader: "Sholom Ber Schmerling"
+    leader_title: "Rabbi (Director)"
+    notes: "Discovered during research — additional Chabad center serving southern Sarasota County."
+    sources:
+      - "https://www.chabadofvenice.com/"
+
+  - name: "Islamic Society of Sarasota and Bradenton (ISSB)"
+    status: verified
+    tradition: Islam
+    denomination: "Sunni"
+    address: "4350 N Lockwood Ridge Rd"
+    city: "Sarasota"
+    zip: "34234"
+    county: "Sarasota"
+    lat: 27.3779
+    lng: -82.4836
+    phone: "(941) 351-3393"
+    website: "https://issb.net"
+    email: "info@issb.net"
+    leader: "Mohamed Ben Khaled"
+    leader_title: "Imam"
+    founded: 1992
+    service_times: "Friday Jummah; daily 5 prayers; Tue/Thu/Fri 8:35 PM lectures; Sunday School 10:30 AM-2 PM"
+    size_estimate: "Multi-ethnic community (~25 nationalities)"
+    notes: "Primary mosque serving Sarasota County."
+    sources:
+      - "https://issb.net/"
+
+  - name: "Nur Academy"
+    status: verified
+    tradition: Islam
+    denomination: "Sunni (Islamic K-5 school)"
+    address: "4350 N Lockwood Ridge Rd"
+    city: "Sarasota"
+    zip: "34234"
+    county: "Sarasota"
+    lat: 27.3779
+    lng: -82.4836
+    website: "https://nur-academy.org"
+    size_estimate: "Small private school, K-5"
+    notes: "Co-located with ISSB. Independent nonprofit Islamic school."
+    sources:
+      - "https://nur-academy.org/about"
+
+  - name: "Other Sarasota County mosques / Islamic centers"
+    status: not_found
+    tradition: Islam
+    notes: |
+      No additional standalone mosques verified in Sarasota County (Venice, North Port, Englewood) beyond ISSB.
+      "Bait Ul Naseer" Ahmadiyya mosque is in HALLANDALE BEACH (Broward County) — NOT Sarasota.
+      No Ahmadiyya, Shia, Venice, or North Port mosque presence found.

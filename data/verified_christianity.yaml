@@ -1,0 +1,713 @@
+SUMMARY:
+  total_entries: 32
+  verified: 6
+  corrected: 21
+  unverified: 1
+  likely_does_not_exist: 0
+  discovered_added: 9
+  patterns_noticed:
+    - "Several Catholic parishes had only PO Box / mailing addresses; corrected to physical street addresses"
+    - "'Santa Martha Church' corrected to 'St. Martha Catholic Church'"
+    - "Church of the Palms is PCUSA Presbyterian (NOT non-denominational as previously listed)"
+    - "Sarasota Christian Church has Mennonite roots via Sarasota Christian School"
+    - "Bay Haven Baptist appears inactive/defunct - building now houses Bay Haven School"
+    - "Bedrock Church meets at 2035 Magnolia (same address as Southside Baptist) - co-located"
+    - "Major Catholic and Episcopal parishes (St. Patrick, St. Boniface) were missing from original list"
+    - "Discovered first Greek Orthodox, AME, and Mennonite churches in the directory"
+
+institutions:
+
+  - name: "Incarnation Catholic Church"
+    status: corrected
+    tradition: Christianity
+    denomination: "Roman Catholic"
+    sub_denomination: "Diocese of Venice"
+    address: "2929 Bee Ridge Road"
+    city: "Sarasota"
+    zip: "34239"
+    county: "Sarasota"
+    lat: 27.2843
+    lng: -82.4884
+    phone: "(941) 921-6631"
+    website: "https://incarnationchurch.org"
+    leader: "Fr. Eric Scanlan"
+    leader_title: "Pastor"
+    founded: 1958
+    service_times: "Sat Vigil 4:00 PM; Sun 7:30, 9:00, 11:00 AM, 5:00 PM"
+    size_estimate: "Large parish"
+    notes: "Original entry had only PO Box; physical address is 2929 Bee Ridge Rd."
+    sources:
+      - "https://incarnationchurch.org/who-we-are/"
+
+  - name: "Our Lady Queen of Martyrs Catholic Church"
+    status: corrected
+    tradition: Christianity
+    denomination: "Roman Catholic"
+    sub_denomination: "Diocese of Venice"
+    address: "833 Magellan Drive"
+    city: "Sarasota"
+    zip: "34243"
+    county: "Sarasota"
+    lat: 27.4022
+    lng: -82.5597
+    phone: "(941) 755-1826"
+    website: "https://olqm.net"
+    leader: "Fr. John Hoang"
+    leader_title: "Pastor"
+    founded: 1959
+    service_times: "Sat Vigil 4:00 PM; Sun 8:00, 10:00 AM, 12 noon"
+    size_estimate: "Large parish"
+    sources:
+      - "https://olqm.net/about-us/history-of-olqm/"
+
+  - name: "St. Martha Catholic Church"
+    status: corrected
+    tradition: Christianity
+    denomination: "Roman Catholic"
+    sub_denomination: "Diocese of Venice"
+    address: "200 N Orange Ave"
+    city: "Sarasota"
+    zip: "34236"
+    county: "Sarasota"
+    lat: 27.3393
+    lng: -82.5421
+    phone: "(941) 366-4210"
+    website: "https://www.stmartha.org"
+    leader: "Fr. George Suszko, S.A.C."
+    leader_title: "Pastor"
+    founded: 1912
+    service_times: "Sat Vigil 4:00 PM; Sun 7:30, 9:00, 10:30 AM (English), 12 noon (Spanish), 5:00 PM"
+    size_estimate: "Large parish"
+    notes: "Corrected name from 'Santa Martha'. Established as parish 1927; mission church 1912. Known as 'the Circus Church'."
+    sources:
+      - "https://www.stmartha.org/our-history/"
+
+  - name: "Church of the Redeemer"
+    status: corrected
+    tradition: Christianity
+    denomination: "Episcopal"
+    sub_denomination: "Diocese of Southwest Florida"
+    address: "222 S Palm Ave"
+    city: "Sarasota"
+    zip: "34236"
+    county: "Sarasota"
+    lat: 27.3329
+    lng: -82.5404
+    phone: "(941) 955-4263"
+    website: "https://www.redeemersarasota.org"
+    leader: "The Rev. Charleston David Wilson"
+    leader_title: "Rector"
+    founded: 1885
+    service_times: "Sat 5:30 PM; Sun 7:30, 9:00, 11:15 AM"
+    size_estimate: "Large (~3000+ members)"
+    notes: "Current rector is Charleston David Wilson (not Fredrick Robinson, who was former)."
+    sources:
+      - "https://www.redeemersarasota.org/history/"
+
+  - name: "First Presbyterian Church of Sarasota"
+    status: corrected
+    tradition: Christianity
+    denomination: "Presbyterian (PCUSA)"
+    address: "2050 Oak St"
+    city: "Sarasota"
+    zip: "34237"
+    county: "Sarasota"
+    lat: 27.3393
+    lng: -82.5260
+    phone: "(941) 955-8119"
+    website: "https://firstpressarasota.org"
+    leader: "Dr. W. Glen Bell"
+    leader_title: "Senior Pastor"
+    founded: 1916
+    service_times: "Sun 8:30 AM, 10:30 AM"
+    size_estimate: "Medium-Large"
+    sources:
+      - "https://firstpressarasota.org/"
+
+  - name: "Kensington Park Baptist Church"
+    status: verified
+    tradition: Christianity
+    denomination: "Baptist"
+    address: "3308 17th St"
+    city: "Sarasota"
+    zip: "34235"
+    county: "Sarasota"
+    lat: 27.3517
+    lng: -82.4946
+    phone: "(941) 366-8638"
+    website: "https://kenbaptist.org"
+    size_estimate: "Small"
+    notes: "Property also associated with All Star Children's Foundation; church appears to share/lease facility."
+    sources:
+      - "https://kenbaptist.org/about/"
+
+  - name: "New Bethel Missionary Baptist Church"
+    status: corrected
+    tradition: Christianity
+    denomination: "Missionary Baptist"
+    city: "Sarasota"
+    county: "Sarasota"
+    website: "https://www.newbethelsrq.org"
+    leader: "Rev. Rawley Harris, Jr."
+    leader_title: "Pastor"
+    notes: "Corrected name to add 'Missionary'. In Newtown neighborhood; no published street address (PO Box 1988, 34230)."
+    sources:
+      - "https://www.newbethelsrq.org/"
+
+  - name: "Sarasota Baptist Church"
+    status: corrected
+    tradition: Christianity
+    denomination: "Baptist (SBC)"
+    address: "7091 Proctor Rd"
+    city: "Sarasota"
+    zip: "34241"
+    county: "Sarasota"
+    lat: 27.2691
+    lng: -82.4549
+    phone: "(941) 922-1449"
+    website: "https://sarasotabaptist.com"
+    leader: "Dr. Michael Lewis"
+    leader_title: "Lead Pastor"
+    service_times: "Sun 9:30 AM, 11:00 AM"
+    size_estimate: "Large multi-site"
+    notes: "Current pastor as of 2025 is Dr. Michael Lewis. Multi-site (Proctor Rd + Lakewood Ranch). Some campuses rebranded as 'SALT Church'."
+    sources:
+      - "https://sarasotabaptist.com/leadership"
+
+  - name: "Southside Baptist Church"
+    status: verified
+    tradition: Christianity
+    denomination: "Baptist"
+    address: "2035 Magnolia St"
+    city: "Sarasota"
+    zip: "34239"
+    county: "Sarasota"
+    lat: 27.3127
+    lng: -82.5358
+    phone: "(941) 953-2588"
+    website: "https://southsidesarasota.com"
+    leader: "Ryan Livingston"
+    leader_title: "Pastor"
+    service_times: "Sun 10:30 AM"
+    size_estimate: "Medium"
+    notes: "Bedrock Church Sarasota also lists this address - co-located."
+    sources:
+      - "https://southsidesarasota.com/staff"
+
+  - name: "Bay Haven Baptist Church"
+    status: unverified
+    tradition: Christianity
+    denomination: "Baptist (Southern Baptist)"
+    address: "3200 Bradenton Rd"
+    city: "Sarasota"
+    zip: "34234"
+    county: "Sarasota"
+    lat: 27.3637
+    lng: -82.5494
+    founded: 1969
+    notes: "Address now associated with Bay Haven School (public magnet); no active church website. LIKELY INACTIVE/DISSOLVED — recommend removing or marking historical."
+    sources:
+      - "https://floridabaptisthistory.org/2017/08/14/sarasota-bay-haven/"
+
+  - name: "Iglesia Bautista Misionera de Sarasota"
+    status: corrected
+    tradition: Christianity
+    denomination: "Baptist (SBC, Spanish-language)"
+    address: "3308 17th St"
+    city: "Sarasota"
+    zip: "34235"
+    county: "Sarasota"
+    lat: 27.3517
+    lng: -82.4946
+    phone: "(941) 373-0878"
+    size_estimate: "Small"
+    notes: "Spanish-language SBC congregation co-located at Kensington Park Baptist site. Runs food pantry by appointment."
+    sources:
+      - "https://flbaptist.org/locations/iglesia-bautista-misionera-de-sarasota/"
+
+  - name: "Vamo United Methodist Church"
+    status: corrected
+    tradition: Christianity
+    denomination: "United Methodist"
+    address: "8521 Vamo Rd"
+    city: "Sarasota"
+    zip: "34231"
+    county: "Sarasota"
+    lat: 27.2231
+    lng: -82.5142
+    phone: "(941) 966-3306"
+    leader: "Pastor Chester J. Zarzycki Jr."
+    leader_title: "Pastor"
+    founded: 1960
+    service_times: "Sun 10:00 AM"
+    size_estimate: "Small"
+    sources:
+      - "https://www.churchfinder.com/churches/fl/sarasota/vamo-united-methodist-church"
+
+  - name: "Faith Lutheran Church"
+    status: corrected
+    tradition: Christianity
+    denomination: "Lutheran (ELCA)"
+    address: "7750 S Beneva Rd"
+    city: "Sarasota"
+    zip: "34238"
+    county: "Sarasota"
+    lat: 27.2454
+    lng: -82.4914
+    phone: "(941) 924-4664"
+    website: "https://www.faithlutheransrq.com"
+    leader: "Rev. Eric Olaf Olsen"
+    leader_title: "Pastor"
+    service_times: "Sun 9:00 AM"
+    size_estimate: "Medium"
+    sources:
+      - "https://www.faithlutheransrq.com/"
+
+  - name: "South Shore Community Church"
+    status: corrected
+    tradition: Christianity
+    denomination: "Non-denominational"
+    address: "1899 S Tuttle Ave"
+    city: "Sarasota"
+    zip: "34239"
+    county: "Sarasota"
+    lat: 27.3171
+    lng: -82.5183
+    phone: "(941) 362-3142"
+    website: "https://www.southshorechurch.com"
+    leader: "Dr. Nicholas (Nic) Williams"
+    leader_title: "Senior Pastor"
+    service_times: "Sun 8:30, 10:00, 11:30 AM; Sun 6:00 PM; Thu 6:30 PM"
+    size_estimate: "Large"
+    sources:
+      - "https://www.southshorechurch.com/our-story"
+
+  - name: "Suncoast Community Church"
+    status: verified
+    tradition: Christianity
+    denomination: "Non-denominational"
+    address: "8000 Hawkins Rd"
+    city: "Sarasota"
+    zip: "34241"
+    county: "Sarasota"
+    lat: 27.2510
+    lng: -82.4419
+    website: "https://www.suncoastcommunity.com"
+    leader: "Dr. Larry Baucom"
+    leader_title: "Senior Pastor"
+    founded: 1998
+    service_times: "Sun 9:00 AM"
+    size_estimate: "Medium-Large"
+    sources:
+      - "https://www.suncoastcommunity.com/"
+
+  - name: "The 360 Church"
+    status: verified
+    tradition: Christianity
+    denomination: "Non-denominational"
+    address: "5250 McIntosh Rd"
+    city: "Sarasota"
+    zip: "34233"
+    county: "Sarasota"
+    lat: 27.2862
+    lng: -82.4783
+    phone: "(941) 363-6876"
+    website: "https://the360church.com"
+    email: "info@360church.com"
+    service_times: "Sun 8:45, 10:30 AM"
+    size_estimate: "Medium"
+    sources:
+      - "https://www.faithstreet.com/church/the-360-church-sarasota-fl"
+
+  - name: "Calvary Chapel Sarasota"
+    status: corrected
+    tradition: Christianity
+    denomination: "Calvary Chapel (non-denominational)"
+    address: "3800 27th Parkway"
+    city: "Sarasota"
+    zip: "34235"
+    county: "Sarasota"
+    lat: 27.3548
+    lng: -82.4849
+    website: "https://ccsrq.cc"
+    leader: "Pastor Carl Dixon"
+    leader_title: "Senior Pastor"
+    founded: 1987
+    service_times: "Sun 9:00 AM, 11:00 AM"
+    size_estimate: "Medium-Large"
+    notes: "Operates Calvary Chapel School at same campus."
+    sources:
+      - "https://ccsrq.cc/our-story"
+
+  - name: "Sarasota Christian Church"
+    status: corrected
+    tradition: Christianity
+    denomination: "Christian Church (Mennonite-rooted, now non-denominational)"
+    address: "2923 Ashton Rd"
+    city: "Sarasota"
+    zip: "34231"
+    county: "Sarasota"
+    lat: 27.2657
+    lng: -82.4892
+    phone: "(941) 924-0107"
+    website: "https://sarasotacc.org"
+    leader: "Lee Robison"
+    leader_title: "Senior Pastor"
+    service_times: "Sun 9:00 AM, 10:45 AM"
+    size_estimate: "Medium"
+    notes: "Roots tied to Sarasota Christian School (1958, Mennonite-affiliated)."
+    sources:
+      - "https://sarasotacc.org/about/meet-the-team/"
+
+  - name: "New Life Worship Center"
+    status: verified
+    tradition: Christianity
+    denomination: "Non-denominational (Charismatic)"
+    address: "2105 Worrington St"
+    city: "Sarasota"
+    zip: "34231"
+    county: "Sarasota"
+    lat: 27.2687
+    lng: -82.5151
+    phone: "(941) 922-8444"
+    website: "https://www.newlifeworshipcenter.com"
+    service_times: "Sun 10:00 AM; Wed 7:00 PM"
+    size_estimate: "Small"
+    sources:
+      - "https://www.newlifeworshipcenter.com/"
+
+  - name: "Church of Hope"
+    status: corrected
+    tradition: Christianity
+    denomination: "Assemblies of God / Interdenominational"
+    address: "2300 Lakewood Ranch Blvd"
+    city: "Sarasota"
+    zip: "34240"
+    county: "Sarasota"
+    lat: 27.3729
+    lng: -82.4181
+    phone: "(941) 923-1592"
+    website: "https://churchofhope.com"
+    leader_title: "Lead Pastor"
+    service_times: "Sat 7:00 PM; Sun 9:00, 11:00 AM"
+    size_estimate: "Megachurch (~2,755 members)"
+    sources:
+      - "https://churchofhope.com/"
+
+  - name: "Church of the Palms"
+    status: corrected
+    tradition: Christianity
+    denomination: "Presbyterian (PCUSA)"
+    address: "3224 Bee Ridge Rd"
+    city: "Sarasota"
+    zip: "34239"
+    county: "Sarasota"
+    lat: 27.2848
+    lng: -82.4898
+    phone: "(941) 924-1323"
+    website: "https://www.churchofthepalms.org"
+    leader: "Rev. Dr. Paul Kirbas"
+    leader_title: "Senior Pastor"
+    service_times: "Sun 9:00, 10:30 AM"
+    size_estimate: "Large"
+    notes: "Original list mis-categorized as non-denominational; actually PCUSA Presbyterian."
+    sources:
+      - "https://www.churchofthepalms.org/about/leadership-and-staff/"
+
+  - name: "Grace Community Church"
+    status: verified
+    tradition: Christianity
+    denomination: "Non-denominational"
+    address: "6932 Professional Pkwy E"
+    city: "Sarasota"
+    zip: "34240"
+    county: "Sarasota"
+    lat: 27.3858
+    lng: -82.4256
+    phone: "(941) 921-5784"
+    website: "https://gracesarasota.com"
+    leader: "Dr. Chip Bennett"
+    leader_title: "Founding Senior Pastor"
+    founded: 2010
+    service_times: "Sun 9:00, 10:45 AM"
+    size_estimate: "Large (multi-service)"
+    notes: "ZIP corrected from 34232 to 34240."
+    sources:
+      - "https://gracesarasota.com/"
+
+  - name: "Sarasota Trinity Church of the Nazarene"
+    status: corrected
+    tradition: Christianity
+    denomination: "Church of the Nazarene"
+    address: "3101 Wilkinson Rd"
+    city: "Sarasota"
+    zip: "34231"
+    county: "Sarasota"
+    lat: 27.2790
+    lng: -82.4995
+    phone: "(941) 922-5133"
+    website: "https://www.sarasotatrinitynazarene.org"
+    leader: "Rev. Virgil Mills"
+    leader_title: "Pastor"
+    founded: 1967
+    service_times: "Sun 11:00 AM"
+    size_estimate: "Small"
+    notes: "ZIP corrected from 34235 to 34231."
+    sources:
+      - "https://www.sarasotatrinitynazarene.org/"
+
+  - name: "The Church of Jesus Christ of Latter-day Saints (Sarasota Ward)"
+    status: corrected
+    tradition: Christianity
+    denomination: "LDS / Mormon"
+    address: "7001 Beneva Rd"
+    city: "Sarasota"
+    zip: "34238"
+    county: "Sarasota"
+    lat: 27.2649
+    lng: -82.4915
+    website: "https://local.churchofjesuschrist.org/en/units/us/fl/sarasota-ward"
+    leader_title: "Bishop (lay)"
+    service_times: "Sun 9:00 AM (Sacrament meeting first)"
+    size_estimate: "Ward congregation"
+    notes: "Part of Sarasota Florida Stake. Multiple wards meet at this building."
+    sources:
+      - "https://local.churchofjesuschrist.org/en/units/us/fl/sarasota-ward"
+
+  - name: "The Pentecostals of Sarasota"
+    status: verified
+    tradition: Christianity
+    denomination: "United Pentecostal Church International (UPCI)"
+    address: "5055 Sawyer Rd"
+    city: "Sarasota"
+    zip: "34233"
+    county: "Sarasota"
+    lat: 27.2982
+    lng: -82.4716
+    phone: "(941) 955-6484"
+    website: "http://thepentecostalsofsarasota.com"
+    leader: "Jody D. Schlottman"
+    leader_title: "Pastor"
+    service_times: "Sun 10:00 AM (SS), 11:00 AM, 6:00 PM; Wed 7:00 PM"
+    size_estimate: "Small-Medium"
+    sources:
+      - "http://thepentecostalsofsarasota.com/staff"
+
+  - name: "Iglesia Pentecostal del Nombre de Jesús"
+    status: corrected
+    tradition: Christianity
+    denomination: "Pentecostal (Spanish-language)"
+    city: "Sarasota"
+    zip: "34234"
+    county: "Sarasota"
+    size_estimate: "Small"
+    notes: "Hispanic Pentecostal church in North Sarasota. Active Facebook page."
+    sources:
+      - "https://www.facebook.com/p/Iglesia-Pentecostal-del-Nombre-de-Jes%C3%BAs-100083503954546/"
+
+  - name: "Iglesia Palabra de Fe"
+    status: corrected
+    tradition: Christianity
+    denomination: "Pentecostal (bilingual)"
+    address: "1872 18th St"
+    city: "Sarasota"
+    zip: "34234"
+    county: "Sarasota"
+    lat: 27.3478
+    lng: -82.5331
+    phone: "(941) 355-4618"
+    size_estimate: "Small"
+    sources:
+      - "https://www.yelp.com/biz/iglesia-palabra-de-fe-sarasota-3"
+
+  - name: "New Covenant Family Church"
+    status: corrected
+    tradition: Christianity
+    denomination: "Pentecostal (Assemblies of God)"
+    address: "5005 Beneva Rd"
+    city: "Sarasota"
+    zip: "34233"
+    county: "Sarasota"
+    lat: 27.2880
+    lng: -82.4955
+    website: "https://www.newcovenantfamilychurch.com"
+    size_estimate: "Small-Medium"
+    sources:
+      - "https://www.newcovenantfamilychurch.com/"
+
+discovered:
+  - name: "St. Patrick Catholic Church"
+    status: verified
+    tradition: Christianity
+    denomination: "Roman Catholic"
+    sub_denomination: "Diocese of Venice"
+    address: "7900 Bee Ridge Rd"
+    city: "Sarasota"
+    zip: "34241"
+    county: "Sarasota"
+    lat: 27.2840
+    lng: -82.4296
+    phone: "(941) 378-1703"
+    website: "https://www.churchofstpatrick.org"
+    leader: "Rev. Robert Dziedziak"
+    leader_title: "Pastor"
+    service_times: "Sat Vigil 4:00 PM; Sun 7:30, 9:00, 11:00 AM, 5:00 PM"
+    size_estimate: "Large parish"
+    sources:
+      - "https://www.churchofstpatrick.org/"
+
+  - name: "St. Boniface Episcopal Church"
+    status: verified
+    tradition: Christianity
+    denomination: "Episcopal"
+    sub_denomination: "Diocese of Southwest Florida"
+    address: "5615 Midnight Pass Rd"
+    city: "Sarasota"
+    zip: "34242"
+    county: "Sarasota"
+    region: "Siesta Key"
+    lat: 27.2630
+    lng: -82.5328
+    website: "https://www.bonifacechurch.org"
+    leader: "The Rev. Nikki Seger"
+    leader_title: "Rector"
+    service_times: "Sun 8:00, 10:00 AM"
+    size_estimate: "Medium-Large"
+    sources:
+      - "https://www.bonifacechurch.org/clergy_staff"
+
+  - name: "First United Methodist Church of Sarasota"
+    status: verified
+    tradition: Christianity
+    denomination: "United Methodist"
+    address: "104 S Pineapple Ave"
+    city: "Sarasota"
+    zip: "34236"
+    county: "Sarasota"
+    lat: 27.3358
+    lng: -82.5414
+    phone: "(941) 955-0935"
+    website: "https://firstsrq.com"
+    email: "office@firstsrq.com"
+    leader: "Brett DeHart"
+    leader_title: "Senior Pastor"
+    service_times: "Sun 9:00, 11:00 AM"
+    size_estimate: "Large"
+    sources:
+      - "https://www.flumc.org/churchdetail/637465"
+
+  - name: "Faith Presbyterian Church (PCA)"
+    status: verified
+    tradition: Christianity
+    denomination: "Presbyterian (PCA)"
+    address: "1201 N Beneva Rd"
+    city: "Sarasota"
+    zip: "34232"
+    county: "Sarasota"
+    lat: 27.3401
+    lng: -82.4928
+    phone: "(941) 955-7074"
+    website: "https://www.faithsarasota.org"
+    leader: "Keith Ledford"
+    leader_title: "Senior Pastor"
+    service_times: "Sun 9:00, 11:00 AM"
+    size_estimate: "Medium"
+    sources:
+      - "https://www.faithsarasota.org/"
+
+  - name: "St. Barbara Greek Orthodox Church"
+    status: verified
+    tradition: Christianity
+    denomination: "Eastern Orthodox"
+    sub_denomination: "Greek Orthodox Archdiocese of America"
+    address: "7671 N Lockwood Ridge Rd"
+    city: "Sarasota"
+    zip: "34243"
+    county: "Sarasota"
+    lat: 27.4113
+    lng: -82.4893
+    phone: "(941) 355-2616"
+    website: "https://sarasotaorthodox.com"
+    leader_title: "Priest"
+    service_times: "Sun Orthros 8:45 AM, Divine Liturgy 10:00 AM"
+    size_estimate: "Medium"
+    notes: "Only Greek Orthodox parish in the Sarasota area. Hosts annual Greek Festival every February."
+    sources:
+      - "https://sarasotaorthodox.com/"
+
+  - name: "Greater Hurst Chapel AME Church"
+    status: verified
+    tradition: Christianity
+    denomination: "African Methodist Episcopal (AME)"
+    address: "2730 N Links Ave"
+    city: "Sarasota"
+    zip: "34234"
+    county: "Sarasota"
+    lat: 27.3603
+    lng: -82.5410
+    phone: "(941) 355-6033"
+    website: "http://www.ghcamec.com"
+    leader: "Rev. Keturah Drayton Pittman"
+    leader_title: "Pastor"
+    service_times: "Sun 10:30 AM; Wed 7:00 PM (Bible study)"
+    size_estimate: "Small-Medium"
+    notes: "AME church in historic Newtown neighborhood."
+    sources:
+      - "http://www.ghcamec.com/"
+
+  - name: "Payne Chapel AME Church"
+    status: verified
+    tradition: Christianity
+    denomination: "African Methodist Episcopal (AME)"
+    address: "1910 Central Ave"
+    city: "Sarasota"
+    zip: "34234"
+    county: "Sarasota"
+    lat: 27.3501
+    lng: -82.5371
+    website: "https://www.paynechapelame.com"
+    leader: "Rev. Odell Watson"
+    leader_title: "Senior Pastor"
+    size_estimate: "Small-Medium"
+    notes: "Historic Black church (117+ years old), among oldest AME congregations in Sarasota."
+    sources:
+      - "https://www.paynechapelame.com/leadership"
+
+  - name: "Bayshore Church"
+    status: verified
+    tradition: Christianity
+    denomination: "Mennonite (MCUSA, Rosedale Network)"
+    address: "5415 Bahia Vista St"
+    city: "Sarasota"
+    zip: "34232"
+    county: "Sarasota"
+    lat: 27.3270
+    lng: -82.4729
+    phone: "(941) 355-4168"
+    website: "https://www.bayshoresrq.org"
+    email: "bayshoresarasota@gmail.com"
+    leader: "David M. Barkema"
+    leader_title: "Pastor"
+    size_estimate: "Small-Medium"
+    notes: "Formerly Bay Shore Mennonite Church."
+    sources:
+      - "https://www.bayshoresrq.org/about-us"
+
+  - name: "Bedrock Church Sarasota"
+    status: verified
+    tradition: Christianity
+    denomination: "Non-denominational"
+    address: "2035 Magnolia St"
+    city: "Sarasota"
+    zip: "34239"
+    county: "Sarasota"
+    lat: 27.3127
+    lng: -82.5358
+    phone: "(941) 208-3250"
+    website: "https://www.mybedrock.church"
+    leader: "Blake Harcup"
+    leader_title: "Pastor"
+    size_estimate: "Medium"
+    notes: "Co-located with Southside Baptist at 2035 Magnolia St. Active disaster relief ministry post-Hurricane Milton 2024."
+    sources:
+      - "https://www.mybedrock.church/"

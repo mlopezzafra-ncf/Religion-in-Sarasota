@@ -1,0 +1,167 @@
+SUMMARY:
+  found: 11
+  not_found_in_county: 4
+  notes:
+    - "Three distinct Christian Science congregations exist in Sarasota (First, Society of, Third)"
+    - "JW Kingdom Hall addresses sourced from third-party scrapers — verify before publishing"
+    - "SRF Sarasota Meditation Circle uses 3975 Fruitville Rd (UU Church of Sarasota's address) — likely shares space"
+    - "No Sikh, Hindu temple, NOI, or organized Pagan/Wiccan presence found in Sarasota County"
+
+institutions:
+
+  - name: "Bahá'ís of Sarasota & Manatee Counties"
+    status: verified
+    tradition: "Bahá'í Faith"
+    denomination: "Bahá'í"
+    city: "Sarasota"
+    county: "Sarasota"
+    phone: "(941) 928-0317"
+    website: "https://srqbahai.org/"
+    notes: "Local Spiritual Assembly serving Sarasota & Manatee. No public meeting house — contact for gatherings."
+    sources:
+      - "https://srqbahai.org/"
+      - "https://find.bahai.us/community/florida/sarasota-county"
+
+  - name: "Sarasota Friends Meeting (Quakers)"
+    status: verified
+    tradition: "Christian (Quaker)"
+    denomination: "Religious Society of Friends"
+    sub_denomination: "FGC / Southeastern Yearly Meeting"
+    address: "3139 57th Street"
+    city: "Sarasota"
+    zip: "34243"
+    county: "Sarasota"
+    phone: "(941) 358-5759"
+    website: "https://quaker.org/legacy/sarasota/"
+    notes: "Meeting house at NW corner of Lockwood Ridge Rd and 57th St."
+    sources:
+      - "https://quaker.org/legacy/sarasota/Location-page.html"
+      - "https://www.fgcquaker.org/quaker-finder/sarasota-friends-meeting-seym/"
+
+  - name: "First Church of Christ, Scientist, Sarasota"
+    status: verified
+    tradition: "Christian Science"
+    denomination: "Church of Christ, Scientist"
+    address: "2100 Main Street"
+    city: "Sarasota"
+    zip: "34237"
+    county: "Sarasota"
+    website: "https://www.firstchurchofchristscientistsarasota.org/"
+    notes: "Reading Room in adjacent building (built 1961, remodeled 2014)."
+    sources:
+      - "https://www.firstchurchofchristscientistsarasota.org/"
+
+  - name: "Christian Science Society of Sarasota"
+    status: verified
+    tradition: "Christian Science"
+    denomination: "Church of Christ, Scientist"
+    city: "Sarasota"
+    county: "Sarasota"
+    website: "https://christiansciencesarasota.org/"
+    notes: "Separate Christian Science congregation — address not retrieved within time budget."
+    sources:
+      - "https://christiansciencesarasota.org/"
+
+  - name: "Third Church of Christ, Scientist, Sarasota"
+    status: verified
+    tradition: "Christian Science"
+    denomination: "Church of Christ, Scientist"
+    city: "Sarasota"
+    county: "Sarasota"
+    website: "https://www.christiansciencechurchsarasota.com/"
+    notes: "Has its own Reading Room — address not retrieved within time budget."
+    sources:
+      - "https://www.christiansciencechurchsarasota.com/"
+
+  - name: "Kingdom Hall of Jehovah's Witnesses (Swift Rd)"
+    status: verified
+    tradition: "Christian"
+    denomination: "Jehovah's Witnesses"
+    address: "4425 Swift Rd"
+    city: "Sarasota"
+    zip: "34231"
+    county: "Sarasota"
+    phone: "(941) 922-6330"
+    website: "https://www.jw.org/"
+    notes: "Sourced from third-party scraper — verify before publishing."
+    sources:
+      - "https://rentechdigital.com/smartscraper/business-report-details/united-states/list-of-jehovahs-witnesses-kingdom-halls-in-florida"
+
+  - name: "Kingdom Hall of Jehovah's Witnesses (17th St)"
+    status: verified
+    tradition: "Christian"
+    denomination: "Jehovah's Witnesses"
+    address: "5148 17th St"
+    city: "Sarasota"
+    zip: "34235"
+    county: "Sarasota"
+    website: "https://www.jw.org/"
+    notes: "Sourced from third-party scraper — verify before publishing."
+    sources:
+      - "https://rentechdigital.com/smartscraper/business-report-details/united-states/list-of-jehovahs-witnesses-kingdom-halls-in-florida"
+
+  - name: "Kingdom Hall of Jehovah's Witnesses (Proctor Rd)"
+    status: verified
+    tradition: "Christian"
+    denomination: "Jehovah's Witnesses"
+    address: "5256 Proctor Rd"
+    city: "Sarasota"
+    zip: "34233"
+    county: "Sarasota"
+    website: "https://www.jw.org/"
+    notes: "Sourced from Waze — verify before publishing."
+    sources:
+      - "https://www.waze.com/live-map/directions/kingdom-hall-of-jehovahs-witnesses-proctor-rd-5256-sarasota"
+
+  - name: "Eckankar Center and Reading Room of Sarasota"
+    status: verified
+    tradition: "New Religious Movement"
+    denomination: "Eckankar"
+    address: "3650 Webber St, Unit F"
+    city: "Sarasota"
+    zip: "34232"
+    county: "Sarasota"
+    phone: "(941) 358-0325"
+    website: "https://eck-florida.org/"
+    notes: "Mailing: P.O. Box 15438 Sarasota, FL 34277. Older listing references 5300 Colonial Oaks Blvd."
+    sources:
+      - "https://www.facebook.com/EckankarinSarasota/"
+      - "https://eck-florida.org/"
+
+  - name: "Sarasota Meditation Circle of Self-Realization Fellowship"
+    status: verified
+    tradition: "Hindu / Yoga"
+    denomination: "Self-Realization Fellowship (SRF)"
+    address: "3975 Fruitville Rd"
+    city: "Sarasota"
+    zip: "34232"
+    county: "Sarasota"
+    website: "https://yogananda.org/locations/sarasota-meditation-circle"
+    email: "sarasota.srf@gmail.com"
+    notes: "Weekly silent meditation following Paramahansa Yogananda. Shares address with UU Church of Sarasota — likely meets in their facility."
+    sources:
+      - "https://yogananda.org/locations/sarasota-meditation-circle"
+
+  - name: "Church of Scientology Mission of Sarasota"
+    status: verified
+    tradition: "New Religious Movement"
+    denomination: "Scientology"
+    address: "5500 Bentgrass Drive #114"
+    city: "Sarasota"
+    zip: "34235"
+    county: "Sarasota"
+    phone: "(941) 926-2466"
+    website: "http://missionofsarasota.blogspot.com/"
+    notes: "Mailing: P.O. Box 2667. Tuesday Night Talks held at 1242 Boulevard of the Arts, Sarasota 34236."
+    sources:
+      - "https://www.churchunion.us/company-scientology-church-in-sarasota-fl-4847"
+
+not_found_in_sarasota_county:
+  - tradition: "Sikh"
+    note: "Nearest Sikh Gurdwara is Tampa Gurdwara (Thonotosassa, FL)."
+  - tradition: "Hindu Temple"
+    note: "No dedicated Hindu temple in Sarasota County. Nearest: Hindu Temple of Florida (Tampa). Yelp listings appear to be Tampa-area scrapes."
+  - tradition: "Nation of Islam"
+    note: "No NOI study group/mosque address found locally."
+  - tradition: "Pagan/Wiccan/Druid"
+    note: "No specific Sarasota-based coven/grove with public address found."

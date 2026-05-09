@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Religion in Sarasota</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; height: 100%; font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif; color: #0f172a; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+  #app { display: grid; grid-template-columns: 380px 1fr; height: 100vh; overflow: hidden; }
+  #sidebar { overflow-y: auto; background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%); border-right: 1px solid #e2e8f0; padding: 0; display: flex; flex-direction: column; }
+  .sidebar-header { padding: 22px 22px 18px 22px; background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: #f1f5f9; border-bottom: 1px solid #cbd5e1; }
+  .sidebar-header h1 { font-family: 'Fraunces', Georgia, serif; font-weight: 700; font-variation-settings: 'opsz' 144; font-size: 30px; line-height: 1.05; letter-spacing: -0.02em; margin: 0 0 6px 0; color: #fff; }
+  .sidebar-header h1 .accent { font-style: italic; font-weight: 500; color: #fbbf24; }
+  .sidebar-header .intro { font-size: 12.5px; line-height: 1.55; color: #cbd5e1; margin: 8px 0 0 0; }
+  .sidebar-header .intro strong { color: #fbbf24; font-weight: 600; }
+  .logos { display: flex; align-items: center; justify-content: center; gap: 14px; padding: 12px 22px; background: #fff; border-bottom: 1px solid #e2e8f0; }
+  .logos img { height: 38px; width: auto; object-fit: contain; opacity: 0.9; transition: opacity 0.15s; }
+  .logos img:hover { opacity: 1; }
+  .logos .logo-divider { width: 1px; height: 28px; background: #e2e8f0; }
+  .sidebar-content { padding: 16px 18px; flex: 1; }
+  #search { width: 100%; padding: 10px 12px; font-size: 13.5px; font-family: inherit; border: 1px solid #cbd5e1; border-radius: 8px; margin-bottom: 12px; background: #fff; transition: border-color 0.15s, box-shadow 0.15s; }
+  #search:focus { outline: none; border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37,99,235,0.12); }
+  #counts { font-size: 11.5px; font-weight: 500; color: #475569; margin-bottom: 12px; padding: 9px 12px; background: #fff; border-radius: 8px; border: 1px solid #e2e8f0; letter-spacing: 0.01em; }
+  #counts strong { color: #0f172a; font-weight: 700; }
+  .action-bar { display: flex; gap: 8px; margin-bottom: 14px; }
+  .action-bar button { flex: 1; padding: 8px 10px; font-size: 11.5px; font-weight: 500; font-family: inherit; background: #fff; border: 1px solid #cbd5e1; border-radius: 8px; cursor: pointer; color: #475569; transition: all 0.15s; letter-spacing: 0.02em; }
+  .action-bar button:hover { background: #0f172a; color: #fff; border-color: #0f172a; }
+  .section-label { font-family: 'Fraunces', Georgia, serif; font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: #64748b; font-weight: 600; margin: 14px 0 10px 0; display: flex; align-items: center; gap: 8px; }
+  .section-label:first-child { margin-top: 4px; }
+  .section-label::after { content: ""; flex: 1; height: 1px; background: #e2e8f0; }
+  .layer-toggle { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 11px 12px; background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; cursor: pointer; transition: all 0.18s; user-select: none; margin-bottom: 6px; }
+  .layer-toggle:hover { border-color: #94a3b8; }
+  .layer-toggle .layer-name { font-family: 'Fraunces', Georgia, serif; font-weight: 600; font-size: 14px; color: #0f172a; }
+  .layer-toggle .layer-desc { font-size: 11px; color: #64748b; margin-top: 2px; }
+  .layer-toggle .layer-switch { width: 38px; height: 22px; background: #cbd5e1; border-radius: 999px; position: relative; transition: background 0.2s; flex-shrink: 0; }
+  .layer-toggle .layer-switch::after { content: ""; position: absolute; top: 2px; left: 2px; width: 18px; height: 18px; background: #fff; border-radius: 50%; transition: transform 0.2s; box-shadow: 0 1px 3px rgba(0,0,0,0.2); }
+  .layer-toggle.on .layer-switch { background: #0f172a; }
+  .layer-toggle.on .layer-switch::after { transform: translateX(16px); }
+  .tradition-block { margin-bottom: 8px; }
+  .tile { position: relative; display: flex; align-items: center; gap: 12px; padding: 11px 12px; background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; cursor: pointer; transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1); user-select: none; overflow: hidden; }
+  .tile::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--tc, #cbd5e1); transition: width 0.18s; }
+  .tile:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08); border-color: var(--tc); }
+  .tile:hover::before { width: 6px; }
+  .tile.off { background: #f8fafc; opacity: 0.55; }
+  .tile.off::before { background: #cbd5e1; }
+  .tile.partial::before { background: repeating-linear-gradient(180deg, var(--tc) 0px, var(--tc) 4px, transparent 4px, transparent 8px); }
+  .tile-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; background: var(--tc, #475569); box-shadow: inset 0 1px 0 rgba(255,255,255,0.2), inset 0 -2px 4px rgba(0,0,0,0.15), 0 2px 6px var(--tc-shadow, rgba(0,0,0,0.12)); transition: transform 0.18s; }
+  .tile:hover .tile-icon { transform: scale(1.05); }
+  .tile.off .tile-icon { background: #94a3b8 !important; box-shadow: inset 0 1px 0 rgba(255,255,255,0.2); }
+  .tile-body { flex: 1; display: flex; flex-direction: column; line-height: 1.25; min-width: 0; }
+  .tile-name { font-family: 'Fraunces', Georgia, serif; font-weight: 600; font-size: 14.5px; color: #0f172a; overflow: hidden; text-overflow: ellipsis; letter-spacing: -0.01em; }
+  .tile.off .tile-name { color: #94a3b8; }
+  .tile-count { font-size: 11px; font-weight: 500; color: #64748b; margin-top: 1px; letter-spacing: 0.01em; }
+  .tile.off .tile-count { color: #cbd5e1; }
+  .tile-chevron { width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; background: #f1f5f9; border: none; cursor: pointer; color: #64748b; border-radius: 8px; font-size: 10px; flex-shrink: 0; transition: all 0.15s; }
+  .tile-chevron:hover { background: #0f172a; color: #fff; }
+  .tile-children { margin: 6px 0 6px 26px; padding-left: 14px; border-left: 2px solid #e2e8f0; display: flex; flex-direction: column; gap: 5px; }
+  .tile-children .tile { padding: 8px 10px; border-radius: 9px; }
+  .tile-children .tile-icon { width: 28px; height: 28px; border-radius: 7px; }
+  .tile-children .tile-icon svg { width: 16px; height: 16px; }
+  .tile-children .tile-name { font-size: 12.5px; font-weight: 500; font-family: 'Inter', sans-serif; }
+  .tile-children .tile-count { font-size: 10.5px; }
+  .sidebar-footer { padding: 12px 22px 16px 22px; border-top: 1px solid #e2e8f0; background: #fff; text-align: center; font-size: 10.5px; color: #94a3b8; line-height: 1.5; }
+  #map { height: 100%; width: 100%; }
+  .marker-symbol { width: 36px; height: 36px; border-radius: 50%; border: 3px solid #fff; box-shadow: 0 3px 8px rgba(0,0,0,0.35); display: flex; align-items: center; justify-content: center; transition: transform 0.15s; }
+  .leaflet-marker-icon:hover .marker-symbol { transform: scale(1.15); z-index: 1000; }
+  .leaflet-popup-content-wrapper { border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+  .leaflet-popup-content { margin: 14px 16px; font-size: 13px; line-height: 1.5; max-width: 280px; }
+  .popup-name { font-family: 'Fraunces', Georgia, serif; font-weight: 600; font-size: 16px; color: #0f172a; margin-bottom: 6px; line-height: 1.2; letter-spacing: -0.01em; }
+  .popup-tradition { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; padding: 4px 10px 4px 5px; border-radius: 999px; color: #fff; margin-bottom: 8px; font-weight: 500; }
+  .popup-tradition .tag-icon { width: 18px; height: 18px; background: rgba(255,255,255,0.22); border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; }
+  .popup-row { margin: 3px 0; color: #334155; font-size: 12.5px; }
+  .popup-row strong { color: #0f172a; font-weight: 600; }
+  .popup-row a { color: #2563eb; text-decoration: none; }
+  .popup-row a:hover { text-decoration: underline; }
+  .popup-notes { margin-top: 8px; padding-top: 8px; border-top: 1px solid #e2e8f0; font-size: 12px; color: #475569; font-style: italic; }
+
+  /* Neighborhood label — colored dot + name + count badge */
+  .neighborhood-label {
+    background: rgba(15,23,42,0.92); color: #fff;
+    font-family: 'Fraunces', Georgia, serif; font-weight: 600; font-size: 12px;
+    padding: 4px 10px; border-radius: 999px;
+    border: none !important; box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    white-space: nowrap; text-align: center; width: auto !important;
+    display: inline-flex !important; align-items: center; gap: 7px;
+  }
+  .neighborhood-label::before { display: none !important; }
+  .nbhd-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; box-shadow: 0 0 0 2px rgba(255,255,255,0.25); }
+  .nbhd-count { background: rgba(255,255,255,0.18); padding: 1px 7px; border-radius: 999px; font-size: 10.5px; font-weight: 700; font-family: 'Inter', sans-serif; letter-spacing: 0.02em; }
+
+  /* Chatbot floating button + panel */
+  #chat-fab {
+    position: fixed; bottom: 24px; right: 24px; z-index: 1100;
+    width: 56px; height: 56px; border-radius: 50%;
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    color: #fbbf24; border: none; cursor: pointer;
+    box-shadow: 0 6px 20px rgba(15,23,42,0.35);
+    display: flex; align-items: center; justify-content: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  #chat-fab:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(15,23,42,0.45); }
+  #chat-fab svg { width: 26px; height: 26px; }
+  #chat-fab.hidden { display: none; }
+
+  #chat-panel {
+    position: fixed; bottom: 24px; right: 24px; z-index: 1100;
+    width: 380px; max-width: calc(100vw - 48px); height: 540px; max-height: calc(100vh - 48px);
+    background: #fff; border-radius: 16px;
+    box-shadow: 0 20px 50px rgba(15,23,42,0.30);
+    display: flex; flex-direction: column;
+    overflow: hidden;
+    transform: translateY(20px) scale(0.95); opacity: 0;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+    pointer-events: none;
+  }
+  #chat-panel.open { transform: translateY(0) scale(1); opacity: 1; pointer-events: auto; }
+
+  .chat-header {
+    padding: 14px 16px;
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    color: #fff;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .chat-header-title {
+    display: flex; align-items: center; gap: 10px;
+    font-family: 'Fraunces', Georgia, serif; font-weight: 600; font-size: 15px;
+  }
+  .chat-bot-icon {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: #fbbf24; color: #0f172a;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+  }
+  .chat-close {
+    width: 28px; height: 28px; border-radius: 8px;
+    background: rgba(255,255,255,0.1); color: #fff; border: none;
+    cursor: pointer; font-size: 18px; line-height: 1;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .chat-close:hover { background: rgba(255,255,255,0.2); }
+
+  .chat-body {
+    flex: 1; overflow-y: auto; padding: 16px;
+    background: #f8fafc;
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .chat-msg {
+    max-width: 85%;
+    padding: 9px 13px; border-radius: 14px;
+    font-size: 13px; line-height: 1.5;
+  }
+  .chat-msg.user {
+    align-self: flex-end;
+    background: #0f172a; color: #fff;
+    border-bottom-right-radius: 4px;
+  }
+  .chat-msg.bot {
+    align-self: flex-start;
+    background: #fff; color: #0f172a;
+    border: 1px solid #e2e8f0;
+    border-bottom-left-radius: 4px;
+  }
+  .chat-msg.bot strong { color: #0f172a; font-weight: 600; }
+
+  .chat-welcome {
+    background: #fff; border: 1px solid #e2e8f0; border-radius: 12px;
+    padding: 14px; font-size: 13px; line-height: 1.5; color: #334155;
+  }
+  .chat-welcome p { margin: 0 0 8px 0; }
+  .chat-welcome p:last-of-type { margin-bottom: 6px; font-size: 11.5px; color: #64748b; }
+  .chat-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  .chat-chip {
+    background: #f1f5f9; color: #0f172a;
+    border: 1px solid #e2e8f0; border-radius: 999px;
+    padding: 5px 11px; font-size: 11.5px; font-family: inherit;
+    cursor: pointer; transition: all 0.15s;
+  }
+  .chat-chip:hover { background: #0f172a; color: #fbbf24; border-color: #0f172a; }
+
+  .chat-input-form {
+    display: flex; gap: 8px; padding: 12px;
+    background: #fff; border-top: 1px solid #e2e8f0;
+  }
+  #chat-text {
+    flex: 1; padding: 9px 12px; font-size: 13px; font-family: inherit;
+    border: 1px solid #cbd5e1; border-radius: 999px;
+    outline: none;
+  }
+  #chat-text:focus { border-color: #0f172a; box-shadow: 0 0 0 3px rgba(15,23,42,0.08); }
+  .chat-input-form button {
+    width: 38px; height: 38px; border-radius: 50%;
+    background: #0f172a; color: #fbbf24; border: none;
+    cursor: pointer; font-size: 16px; font-weight: 600;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .chat-input-form button:hover { background: #1e293b; }
+
+  @media (max-width: 768px) {
+    #app { grid-template-columns: 1fr; grid-template-rows: 380px 1fr; }
+    #sidebar { border-right: none; border-bottom: 1px solid #e2e8f0; }
+    .sidebar-header h1 { font-size: 24px; }
+    #chat-panel { width: calc(100vw - 24px); right: 12px; bottom: 12px; height: 70vh; }
+    #chat-fab { bottom: 16px; right: 16px; }
+  }
+</style>
+</head>
+<body>
+<div id="app">
+  <aside id="sidebar">
+    <div class="sidebar-header">
+      <h1>Religion <span class="accent">in</span> Sarasota</h1>
+      <p class="intro">A living atlas of the <strong>religious and spiritual diversity</strong> of Sarasota County — from cathedrals and synagogues to temples, mosques, monasteries, and metaphysical centers.</p>
+    </div>
+    <div class="logos">
+      <img src="NCF Shield RGB_no color copy.png" alt="New College of Florida" title="New College of Florida">
+      <div class="logo-divider"></div>
+      <img src="Logo_of_Sarasota_County,_Florida.svg.png" alt="Sarasota County" title="Sarasota County">
+      <div class="logo-divider"></div>
+      <img src="Seal_of_Sarasota_County.png" alt="Sarasota County Seal" title="Sarasota County Seal">
+    </div>
+    <div class="sidebar-content">
+      <input id="search" type="search" placeholder="Search by name, address, or leader…" />
+      <div id="counts">Loading…</div>
+      <div class="action-bar">
+        <button id="select-all">Show all</button>
+        <button id="select-none">Hide all</button>
+      </div>
+
+      <div class="section-label">Map layers</div>
+      <div class="layer-toggle" id="toggle-neighborhoods">
+        <div>
+          <div class="layer-name">Neighborhoods</div>
+          <div class="layer-desc">Color-coded zones with site counts</div>
+        </div>
+        <div class="layer-switch"></div>
+      </div>
+
+      <div class="section-label">Traditions</div>
+      <div id="tiles"></div>
+    </div>
+    <div class="sidebar-footer">Compiled and verified May 2026 · 123 institutions · 10 traditions · 14 neighborhoods</div>
+  </aside>
+  <main><div id="map"></div></main>
+</div>
+
+<!-- Chatbot -->
+<button id="chat-fab" aria-label="Ask the directory">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3C6.48 3 2 6.94 2 11.5c0 2.09.97 4 2.56 5.45L4 21l4.35-1.43A11.4 11.4 0 0 0 12 20c5.52 0 10-3.94 10-8.5S17.52 3 12 3z"/></svg>
+</button>
+<div id="chat-panel" aria-hidden="true">
+  <div class="chat-header">
+    <div class="chat-header-title">
+      <span class="chat-bot-icon">✦</span>
+      <span>Ask the directory</span>
+    </div>
+    <button class="chat-close" id="chat-close" aria-label="Close">×</button>
+  </div>
+  <div class="chat-body" id="chat-body">
+    <div class="chat-welcome">
+      <p>Hi! I can answer questions about the 123 places in this directory.</p>
+      <p>Try one of these:</p>
+      <div class="chat-chips">
+        <button class="chat-chip" data-q="How many Catholic churches?">How many Catholic churches?</button>
+        <button class="chat-chip" data-q="Which neighborhood has the most worship sites?">Which neighborhood has the most?</button>
+        <button class="chat-chip" data-q="What is the oldest synagogue?">Oldest synagogue?</button>
+        <button class="chat-chip" data-q="List all mosques">All mosques</button>
+        <button class="chat-chip" data-q="How many places in Venice?">Places in Venice?</button>
+        <button class="chat-chip" data-q="How many Buddhist temples?">Buddhist temples?</button>
+        <button class="chat-chip" data-q="Where is the Hindu temple?">Hindu temple?</button>
+      </div>
+    </div>
+  </div>
+  <form class="chat-input-form" id="chat-form">
+    <input id="chat-text" placeholder="Ask anything…" autocomplete="off" />
+    <button type="submit" aria-label="Send">→</button>
+  </form>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+<script>
+const INSTITUTIONS = [{"id": "st-martha", "name": "St. Martha Catholic Church", "tradition": "Christianity", "denomination": "Roman Catholic", "sub_denomination": "Diocese of Venice", "address": "200 N Orange Ave", "city": "Sarasota", "zip": "34236", "county": "Sarasota", "lat": 27.3393, "lng": -82.5421, "phone": "(941) 366-4210", "website": "https://www.stmartha.org", "leader": "Fr. George Suszko, S.A.C.", "leader_title": "Pastor", "founded": 1912, "service_times": "Sat Vigil 4 PM; Sun 7:30, 9, 10:30 AM (Eng), 12 PM (Sp), 5 PM", "size": "Large", "notes": "Known as 'the Circus Church'."}, {"id": "incarnation", "name": "Incarnation Catholic Church", "tradition": "Christianity", "denomination": "Roman Catholic", "sub_denomination": "Diocese of Venice", "address": "2929 Bee Ridge Rd", "city": "Sarasota", "zip": "34239", "county": "Sarasota", "lat": 27.2843, "lng": -82.4884, "phone": "(941) 921-6631", "website": "https://incarnationchurch.org", "leader": "Fr. Eric Scanlan", "leader_title": "Pastor", "founded": 1958, "service_times": "Sat Vigil 4 PM; Sun 7:30, 9, 11 AM, 5 PM", "size": "Large"}, {"id": "olqm", "name": "Our Lady Queen of Martyrs", "tradition": "Christianity", "denomination": "Roman Catholic", "sub_denomination": "Diocese of Venice", "address": "833 Magellan Drive", "city": "Sarasota", "zip": "34243", "county": "Sarasota", "lat": 27.4022, "lng": -82.5597, "phone": "(941) 755-1826", "website": "https://olqm.net", "leader": "Fr. John Hoang", "leader_title": "Pastor", "founded": 1959, "service_times": "Sat Vigil 4 PM; Sun 8, 10 AM, 12 PM", "size": "Large"}, {"id": "st-patrick", "name": "St. Patrick Catholic Church", "tradition": "Christianity", "denomination": "Roman Catholic", "sub_denomination": "Diocese of Venice", "address": "7900 Bee Ridge Rd", "city": "Sarasota", "zip": "34241", "county": "Sarasota", "lat": 27.284, "lng": -82.4296, "phone": "(941) 378-1703", "website": "https://www.churchofstpatrick.org", "leader": "Rev. Robert Dziedziak", "leader_title": "Pastor", "service_times": "Sat Vigil 4 PM; Sun 7:30, 9, 11 AM, 5 PM", "size": "Large"}, {"id": "epiphany-cathedral", "name": "Epiphany Cathedral", "tradition": "Christianity", "denomination": "Roman Catholic", "sub_denomination": "Diocese of Venice (Cathedral)", "address": "310 Sarasota St", "city": "Venice", "zip": "34285", "county": "Sarasota", "lat": 27.0998, "lng": -82.4521, "phone": "(941) 484-3505", "website": "https://www.epiphanycathedral.org", "leader_title": "Rector", "size": "Large", "notes": "Cathedral / seat of Diocese of Venice."}, {"id": "san-pedro", "name": "San Pedro Catholic Church", "tradition": "Christianity", "denomination": "Roman Catholic", "sub_denomination": "Diocese of Venice", "address": "14380 Tamiami Trail", "city": "North Port", "zip": "34287", "county": "Sarasota", "lat": 27.0432, "lng": -82.2231, "phone": "(941) 426-2500", "website": "https://sanpedrocc.org", "leader": "Fr. Thomas Carzon, OMV", "leader_title": "Pastor", "size": "Large"}, {"id": "st-raphael", "name": "St. Raphael Catholic Church", "tradition": "Christianity", "denomination": "Roman Catholic", "sub_denomination": "Diocese of Venice", "address": "770 Kilbourne Ave", "city": "Englewood", "zip": "34223", "county": "Sarasota", "lat": 26.9577, "lng": -82.3479}, {"id": "olmc-osprey", "name": "Our Lady of Mount Carmel", "tradition": "Christianity", "denomination": "Roman Catholic", "sub_denomination": "Diocese of Venice", "address": "425 S Tamiami Trail", "city": "Osprey", "zip": "34229", "county": "Sarasota", "lat": 27.1979, "lng": -82.4901, "phone": "(941) 966-0807"}, {"id": "st-barbara-greek", "name": "St. Barbara Greek Orthodox Church", "tradition": "Christianity", "denomination": "Eastern Orthodox", "sub_denomination": "Greek Orthodox", "address": "7671 N Lockwood Ridge Rd", "city": "Sarasota", "zip": "34243", "county": "Sarasota", "lat": 27.4113, "lng": -82.4893, "phone": "(941) 355-2616", "website": "https://sarasotaorthodox.com", "leader_title": "Priest", "service_times": "Sun Orthros 8:45 AM, Divine Liturgy 10 AM", "notes": "Only Greek Orthodox parish in the area. Annual Greek Festival in February."}, {"id": "redeemer", "name": "Church of the Redeemer", "tradition": "Christianity", "denomination": "Episcopal", "sub_denomination": "Diocese of Southwest Florida", "address": "222 S Palm Ave", "city": "Sarasota", "zip": "34236", "county": "Sarasota", "lat": 27.3329, "lng": -82.5404, "phone": "(941) 955-4263", "website": "https://www.redeemersarasota.org", "leader": "The Rev. Charleston David Wilson", "leader_title": "Rector", "founded": 1885, "service_times": "Sat 5:30 PM; Sun 7:30, 9, 11:15 AM", "size": "Large (~3,000+ members)"}, {"id": "st-boniface", "name": "St. Boniface Episcopal Church", "tradition": "Christianity", "denomination": "Episcopal", "sub_denomination": "Diocese of Southwest Florida", "address": "5615 Midnight Pass Rd", "city": "Sarasota", "zip": "34242", "county": "Sarasota", "region": "Siesta Key", "lat": 27.263, "lng": -82.5328, "website": "https://www.bonifacechurch.org", "leader": "The Rev. Nikki Seger", "leader_title": "Rector", "service_times": "Sun 8, 10 AM", "size": "Medium-Large"}, {"id": "st-marks-venice", "name": "St. Mark's Episcopal Church", "tradition": "Christianity", "denomination": "Episcopal", "sub_denomination": "Diocese of Southwest Florida", "address": "508 Riviera St", "city": "Venice", "zip": "34285", "county": "Sarasota", "lat": 27.0985, "lng": -82.4495, "phone": "(941) 488-7714", "website": "https://stmarksvenice.org", "leader": "Fr. Mike", "leader_title": "Rector"}, {"id": "st-davids", "name": "St. David's Episcopal Church", "tradition": "Christianity", "denomination": "Episcopal", "sub_denomination": "Diocese of Southwest Florida", "address": "401 S Broadway", "city": "Englewood", "zip": "34223", "county": "Sarasota", "lat": 26.9613, "lng": -82.3525, "phone": "(941) 474-3140", "website": "https://www.stdavidsenglewood.org"}, {"id": "holy-spirit-osprey", "name": "Church of the Holy Spirit", "tradition": "Christianity", "denomination": "Episcopal", "sub_denomination": "Diocese of Southwest Florida", "address": "129 S Tamiami Trail", "city": "Osprey", "zip": "34229", "county": "Sarasota", "lat": 27.1957, "lng": -82.4894, "phone": "(941) 966-1924", "website": "https://www.chsosprey.com"}, {"id": "faith-lutheran", "name": "Faith Lutheran Church", "tradition": "Christianity", "denomination": "Lutheran", "sub_denomination": "ELCA", "address": "7750 S Beneva Rd", "city": "Sarasota", "zip": "34238", "county": "Sarasota", "lat": 27.2454, "lng": -82.4914, "phone": "(941) 924-4664", "website": "https://www.faithlutheransrq.com", "leader": "Rev. Eric Olaf Olsen", "leader_title": "Pastor", "service_times": "Sun 9 AM"}, {"id": "lakeside-lutheran", "name": "Lakeside Lutheran Church", "tradition": "Christianity", "denomination": "Lutheran", "sub_denomination": "LCMS", "address": "2401 S Tamiami Trail", "city": "Venice", "zip": "34293", "county": "Sarasota", "lat": 27.0635, "lng": -82.4221, "phone": "(941) 493-5102", "website": "https://lakesidelutheran.net", "leader": "Rev. David J. Dahlke", "leader_title": "Pastor"}, {"id": "emmanuel-lutheran", "name": "Emmanuel Lutheran Church", "tradition": "Christianity", "denomination": "Lutheran", "sub_denomination": "ELCA", "address": "790 Tamiami Trail S", "city": "Venice", "zip": "34285", "county": "Sarasota", "lat": 27.0951, "lng": -82.4509, "leader": "Rob Hall", "leader_title": "Pastor"}, {"id": "redeemer-lutheran-eng", "name": "Redeemer Lutheran Church", "tradition": "Christianity", "denomination": "Lutheran", "sub_denomination": "LCMS", "city": "Englewood", "zip": "34223", "county": "Sarasota", "lat": 26.9621, "lng": -82.3573, "website": "https://www.redeemerfl.com"}, {"id": "first-umc-sarasota", "name": "First United Methodist Church of Sarasota", "tradition": "Christianity", "denomination": "United Methodist", "address": "104 S Pineapple Ave", "city": "Sarasota", "zip": "34236", "county": "Sarasota", "lat": 27.3358, "lng": -82.5414, "phone": "(941) 955-0935", "website": "https://firstsrq.com", "leader": "Brett DeHart", "leader_title": "Senior Pastor", "service_times": "Sun 9, 11 AM", "size": "Large"}, {"id": "vamo-umc", "name": "Vamo United Methodist Church", "tradition": "Christianity", "denomination": "United Methodist", "address": "8521 Vamo Rd", "city": "Sarasota", "zip": "34231", "county": "Sarasota", "lat": 27.2231, "lng": -82.5142, "phone": "(941) 966-3306", "leader": "Chester J. Zarzycki Jr.", "leader_title": "Pastor", "founded": 1960, "service_times": "Sun 10 AM"}, {"id": "grace-umc-venice", "name": "Grace United Methodist Church", "tradition": "Christianity", "denomination": "United Methodist", "city": "Venice", "county": "Sarasota", "lat": 27.0998, "lng": -82.4287, "website": "https://christvenice.com", "leader": "Daryl Allen", "leader_title": "Senior Pastor", "notes": "Consolidation of former First UMC of Venice."}, {"id": "trinity-umc-np", "name": "Trinity United Methodist Church of North Port", "tradition": "Christianity", "denomination": "United Methodist", "address": "4285 Wesley Ln", "city": "North Port", "zip": "34287", "county": "Sarasota", "lat": 27.0492, "lng": -82.2378, "phone": "(941) 426-1734", "website": "https://www.trinitychurchnorthport.com", "leader": "Dottie Johns", "leader_title": "Senior Pastor", "service_times": "Sun 9 AM"}, {"id": "englewood-umc", "name": "Englewood United Methodist Church", "tradition": "Christianity", "denomination": "United Methodist", "address": "700 E Dearborn St", "city": "Englewood", "zip": "34223", "county": "Sarasota", "lat": 26.9627, "lng": -82.3498, "phone": "(941) 474-5588", "website": "https://www.englewoodmethodist.com"}, {"id": "hurst-chapel-ame", "name": "Greater Hurst Chapel AME Church", "tradition": "Christianity", "denomination": "AME", "sub_denomination": "African Methodist Episcopal", "address": "2730 N Links Ave", "city": "Sarasota", "zip": "34234", "county": "Sarasota", "lat": 27.3603, "lng": -82.541, "phone": "(941) 355-6033", "website": "http://www.ghcamec.com", "leader": "Rev. Keturah Drayton Pittman", "leader_title": "Pastor", "service_times": "Sun 10:30 AM; Wed 7 PM Bible Study", "notes": "Newtown neighborhood."}, {"id": "payne-chapel-ame", "name": "Payne Chapel AME Church", "tradition": "Christianity", "denomination": "AME", "sub_denomination": "African Methodist Episcopal", "address": "1910 Central Ave", "city": "Sarasota", "zip": "34234", "county": "Sarasota", "lat": 27.3501, "lng": -82.5371, "website": "https://www.paynechapelame.com", "leader": "Rev. Odell Watson", "leader_title": "Senior Pastor", "notes": "Historic Black church (117+ years)."}, {"id": "first-pres-sarasota", "name": "First Presbyterian Church of Sarasota", "tradition": "Christianity", "denomination": "Presbyterian", "sub_denomination": "PCUSA", "address": "2050 Oak St", "city": "Sarasota", "zip": "34237", "county": "Sarasota", "lat": 27.3393, "lng": -82.526, "phone": "(941) 955-8119", "website": "https://firstpressarasota.org", "leader": "Dr. W. Glen Bell", "leader_title": "Senior Pastor", "founded": 1916, "service_times": "Sun 8:30, 10:30 AM"}, {"id": "church-of-palms", "name": "Church of the Palms", "tradition": "Christianity", "denomination": "Presbyterian", "sub_denomination": "PCUSA", "address": "3224 Bee Ridge Rd", "city": "Sarasota", "zip": "34239", "county": "Sarasota", "lat": 27.2848, "lng": -82.4898, "phone": "(941) 924-1323", "website": "https://www.churchofthepalms.org", "leader": "Rev. Dr. Paul Kirbas", "leader_title": "Senior Pastor", "service_times": "Sun 9, 10:30 AM", "size": "Large", "notes": "Originally listed as non-denominational; correctly PCUSA."}, {"id": "venice-pres", "name": "Venice Presbyterian Church", "tradition": "Christianity", "denomination": "Presbyterian", "sub_denomination": "PCUSA", "address": "825 The Rialto", "city": "Venice", "zip": "34285", "county": "Sarasota", "lat": 27.0945, "lng": -82.4536, "phone": "(941) 488-2258", "website": "https://www.venicepres.org", "leader": "Chris Romig", "leader_title": "Pastor"}, {"id": "faith-pres-pca", "name": "Faith Presbyterian Church", "tradition": "Christianity", "denomination": "Presbyterian", "sub_denomination": "PCA", "address": "1201 N Beneva Rd", "city": "Sarasota", "zip": "34232", "county": "Sarasota", "lat": 27.3401, "lng": -82.4928, "phone": "(941) 955-7074", "website": "https://www.faithsarasota.org", "leader": "Keith Ledford", "leader_title": "Senior Pastor", "service_times": "Sun 9, 11 AM"}, {"id": "first-pres-np", "name": "First Presbyterian Church of North Port", "tradition": "Christianity", "denomination": "Presbyterian", "sub_denomination": "PCA", "address": "5600 S Biscayne Dr", "city": "North Port", "zip": "34287", "county": "Sarasota", "lat": 27.0476, "lng": -82.2362}, {"id": "st-pauls-pres-np", "name": "St. Paul's Presbyterian Church", "tradition": "Christianity", "denomination": "Presbyterian", "address": "12497 Tamiami Trail S, Unit D", "city": "North Port", "zip": "34287", "county": "Sarasota", "lat": 27.0432, "lng": -82.2231, "website": "https://stpaulspres.com"}, {"id": "kensington-park", "name": "Kensington Park Baptist Church", "tradition": "Christianity", "denomination": "Baptist", "address": "3308 17th St", "city": "Sarasota", "zip": "34235", "county": "Sarasota", "lat": 27.3517, "lng": -82.4946, "phone": "(941) 366-8638", "website": "https://kenbaptist.org"}, {"id": "sarasota-baptist", "name": "Sarasota Baptist Church", "tradition": "Christianity", "denomination": "Baptist", "sub_denomination": "SBC", "address": "7091 Proctor Rd", "city": "Sarasota", "zip": "34241", "county": "Sarasota", "lat": 27.2691, "lng": -82.4549, "phone": "(941) 922-1449", "website": "https://sarasotabaptist.com", "leader": "Dr. Michael Lewis", "leader_title": "Lead Pastor", "service_times": "Sun 9:30, 11 AM", "size": "Large multi-site"}, {"id": "southside-baptist", "name": "Southside Baptist Church", "tradition": "Christianity", "denomination": "Baptist", "address": "2035 Magnolia St", "city": "Sarasota", "zip": "34239", "county": "Sarasota", "lat": 27.3127, "lng": -82.5358, "phone": "(941) 953-2588", "website": "https://southsidesarasota.com", "leader": "Ryan Livingston", "leader_title": "Pastor", "service_times": "Sun 10:30 AM", "notes": "Co-located with Bedrock Church."}, {"id": "new-bethel-mbc", "name": "New Bethel Missionary Baptist Church", "tradition": "Christianity", "denomination": "Baptist", "sub_denomination": "Missionary Baptist", "city": "Sarasota", "county": "Sarasota", "lat": 27.357, "lng": -82.541, "website": "https://www.newbethelsrq.org", "leader": "Rev. Rawley Harris, Jr.", "leader_title": "Pastor", "notes": "Newtown neighborhood; PO Box 1988, 34230."}, {"id": "iglesia-bautista", "name": "Iglesia Bautista Misionera de Sarasota", "tradition": "Christianity", "denomination": "Baptist", "sub_denomination": "SBC (Spanish-language)", "address": "3308 17th St", "city": "Sarasota", "zip": "34235", "county": "Sarasota", "lat": 27.3517, "lng": -82.4946, "phone": "(941) 373-0878", "notes": "Co-located with Kensington Park Baptist."}, {"id": "fbc-venice", "name": "First Baptist Church of Venice", "tradition": "Christianity", "denomination": "Baptist", "sub_denomination": "SBC", "address": "312 Miami Ave W", "city": "Venice", "zip": "34285", "county": "Sarasota", "lat": 27.0995, "lng": -82.4523, "website": "https://fbcvenice.org", "leader": "Tom Hodge", "leader_title": "Senior Pastor", "size": "Large", "notes": "Lakefront Campus at 3100 Executive Dr, Venice 34292."}, {"id": "fbc-northport", "name": "First Baptist Church of North Port", "tradition": "Christianity", "denomination": "Baptist", "sub_denomination": "SBC", "address": "8000 Dorothy Ave", "city": "North Port", "zip": "34287", "county": "Sarasota", "lat": 27.0395, "lng": -82.2126, "website": "https://www.fbcnorthport.org"}, {"id": "fbc-englewood", "name": "First Baptist Church Englewood", "tradition": "Christianity", "denomination": "Baptist", "sub_denomination": "SBC", "address": "278 S Mango St", "city": "Englewood", "zip": "34223", "county": "Sarasota", "lat": 26.9612, "lng": -82.352, "phone": "(941) 474-2473", "leader": "John Cates", "service_times": "Sun 10:30 AM"}, {"id": "fbc-osprey", "name": "First Baptist Church of Osprey", "tradition": "Christianity", "denomination": "Baptist", "sub_denomination": "SBC", "city": "Osprey", "zip": "34229", "county": "Sarasota", "lat": 27.1956, "lng": -82.4882, "phone": "(941) 966-2705", "website": "https://osprey.church"}, {"id": "fbc-nokomis", "name": "First Baptist Church of Nokomis", "tradition": "Christianity", "denomination": "Baptist", "sub_denomination": "SBC", "city": "Nokomis", "zip": "34275", "county": "Sarasota", "lat": 27.119, "lng": -82.4459}, {"id": "johnson-chapel-mbc", "name": "Johnson Chapel Missionary Baptist Church", "tradition": "Christianity", "denomination": "Baptist", "sub_denomination": "Missionary Baptist", "address": "506 Church St", "city": "Nokomis", "zip": "34275", "county": "Sarasota", "lat": 27.1198, "lng": -82.4423, "notes": "Historic Black congregation in Laurel/Nokomis."}, {"id": "mt-zion-mbc", "name": "Mt. Zion Missionary Baptist Church", "tradition": "Christianity", "denomination": "Baptist", "sub_denomination": "Missionary Baptist", "address": "112 Wallace St", "city": "Nokomis", "zip": "34275", "county": "Sarasota", "lat": 27.1178, "lng": -82.4419}, {"id": "church-of-hope", "name": "Church of Hope", "tradition": "Christianity", "denomination": "Pentecostal", "sub_denomination": "Assemblies of God", "address": "2300 Lakewood Ranch Blvd", "city": "Sarasota", "zip": "34240", "county": "Sarasota", "lat": 27.3729, "lng": -82.4181, "phone": "(941) 923-1592", "website": "https://churchofhope.com", "leader_title": "Lead Pastor", "service_times": "Sat 7 PM; Sun 9, 11 AM", "size": "Megachurch (~2,755 members)"}, {"id": "pentecostals-sarasota", "name": "The Pentecostals of Sarasota", "tradition": "Christianity", "denomination": "Pentecostal", "sub_denomination": "UPCI", "address": "5055 Sawyer Rd", "city": "Sarasota", "zip": "34233", "county": "Sarasota", "lat": 27.2982, "lng": -82.4716, "phone": "(941) 955-6484", "website": "http://thepentecostalsofsarasota.com", "leader": "Jody D. Schlottman", "leader_title": "Pastor", "service_times": "Sun 11 AM, 6 PM; Wed 7 PM"}, {"id": "new-covenant", "name": "New Covenant Family Church", "tradition": "Christianity", "denomination": "Pentecostal", "sub_denomination": "Assemblies of God", "address": "5005 Beneva Rd", "city": "Sarasota", "zip": "34233", "county": "Sarasota", "lat": 27.288, "lng": -82.4955, "website": "https://www.newcovenantfamilychurch.com"}, {"id": "new-life-worship", "name": "New Life Worship Center", "tradition": "Christianity", "denomination": "Charismatic non-denominational", "address": "2105 Worrington St", "city": "Sarasota", "zip": "34231", "county": "Sarasota", "lat": 27.2687, "lng": -82.5151, "phone": "(941) 922-8444", "website": "https://www.newlifeworshipcenter.com"}, {"id": "iglesia-pentecostal-nj", "name": "Iglesia Pentecostal del Nombre de Jesús", "tradition": "Christianity", "denomination": "Pentecostal (Spanish)", "city": "Sarasota", "zip": "34234", "county": "Sarasota", "lat": 27.358, "lng": -82.541}, {"id": "iglesia-palabra-fe", "name": "Iglesia Palabra de Fe", "tradition": "Christianity", "denomination": "Pentecostal (bilingual)", "address": "1872 18th St", "city": "Sarasota", "zip": "34234", "county": "Sarasota", "lat": 27.3478, "lng": -82.5331, "phone": "(941) 355-4618"}, {"id": "gulf-coast-church", "name": "Gulf Coast Church", "tradition": "Christianity", "denomination": "Non-denominational / AG", "city": "North Port", "county": "Sarasota", "lat": 27.045, "lng": -82.235, "website": "https://gcc.churchtrac.com"}, {"id": "cog-north-sarasota", "name": "Church of God of North Sarasota", "tradition": "Christianity", "denomination": "Pentecostal", "sub_denomination": "Church of God (Cleveland, TN)", "address": "4090 Tallevast Rd", "city": "Sarasota", "county": "Sarasota", "lat": 27.4012, "lng": -82.5232, "notes": "Verify county — Tallevast Rd straddles line."}, {"id": "victory-faith-cogic", "name": "Victory Faith Assembly Church Of God In Christ", "tradition": "Christianity", "denomination": "Pentecostal", "sub_denomination": "COGIC", "city": "Sarasota", "county": "Sarasota", "lat": 27.355, "lng": -82.54, "notes": "Address needs verification. Likely in Newtown."}, {"id": "first-christian-doc", "name": "First Christian Church (Disciples of Christ)", "tradition": "Christianity", "denomination": "Disciples of Christ", "address": "7601 SR-72", "city": "Sarasota", "county": "Sarasota", "lat": 27.273, "lng": -82.388, "phone": "(941) 922-4434"}, {"id": "beneva-christian-doc", "name": "Beneva Christian Church (Disciples of Christ)", "tradition": "Christianity", "denomination": "Disciples of Christ", "address": "4835 Beneva Rd", "city": "Sarasota", "county": "Sarasota", "lat": 27.2935, "lng": -82.4928}, {"id": "sarasota-christian-cc", "name": "Sarasota Christian Church", "tradition": "Christianity", "denomination": "Christian Church (non-denom, Mennonite-rooted)", "address": "2923 Ashton Rd", "city": "Sarasota", "zip": "34231", "county": "Sarasota", "lat": 27.2657, "lng": -82.4892, "phone": "(941) 924-0107", "website": "https://sarasotacc.org", "leader": "Lee Robison", "leader_title": "Senior Pastor", "service_times": "Sun 9, 10:45 AM"}, {"id": "osprey-church-of-christ", "name": "Osprey Church of Christ", "tradition": "Christianity", "denomination": "Churches of Christ (a cappella)", "address": "406 Pennsylvania Ave", "city": "Osprey", "zip": "34229", "county": "Sarasota", "lat": 27.1972, "lng": -82.4861, "website": "https://ospreychurchofchrist.com"}, {"id": "bayshore", "name": "Bayshore Church", "tradition": "Christianity", "denomination": "Mennonite", "sub_denomination": "MCUSA / Rosedale Network", "address": "5415 Bahia Vista St", "city": "Sarasota", "zip": "34232", "county": "Sarasota", "lat": 27.327, "lng": -82.4729, "phone": "(941) 355-4168", "website": "https://www.bayshoresrq.org", "leader": "David M. Barkema", "leader_title": "Pastor", "notes": "Formerly Bay Shore Mennonite Church."}, {"id": "sarasota-friends", "name": "Sarasota Friends Meeting", "tradition": "Christianity", "denomination": "Quaker", "sub_denomination": "FGC / Southeastern Yearly Meeting", "address": "3139 57th St", "city": "Sarasota", "zip": "34243", "county": "Sarasota", "lat": 27.4011, "lng": -82.4915, "phone": "(941) 358-5759", "website": "https://quaker.org/legacy/sarasota/", "service_times": "Sun 10 AM (unprogrammed)"}, {"id": "first-cong-ucc", "name": "First Congregational UCC", "tradition": "Christianity", "denomination": "United Church of Christ", "address": "1031 S Euclid Ave", "city": "Sarasota", "zip": "34237", "county": "Sarasota", "lat": 27.3299, "lng": -82.5218, "phone": "(941) 953-7044", "website": "https://uccsarasota.com", "leader": "Rev. Dr. Wesley D. Bixby", "leader_title": "Senior Pastor", "notes": "Open & Affirming since 2001."}, {"id": "st-andrew-ucc", "name": "St. Andrew United Church of Christ", "tradition": "Christianity", "denomination": "United Church of Christ", "address": "6908 Beneva Rd", "city": "Sarasota", "county": "Sarasota", "lat": 27.2667, "lng": -82.4915, "phone": "(941) 922-7595", "website": "https://www.sarasotaucc.org", "notes": "Just Peace, Open & Affirming."}, {"id": "north-port-ucc", "name": "North Port Community UCC", "tradition": "Christianity", "denomination": "United Church of Christ", "city": "North Port", "county": "Sarasota", "lat": 27.044, "lng": -82.236, "website": "https://www.northportucc.org"}, {"id": "first-cs-sarasota", "name": "First Church of Christ, Scientist, Sarasota", "tradition": "Christianity", "denomination": "Christian Science", "address": "2100 Main St", "city": "Sarasota", "zip": "34237", "county": "Sarasota", "lat": 27.3372, "lng": -82.5305, "website": "https://www.firstchurchofchristscientistsarasota.org", "notes": "Reading Room in adjacent building."}, {"id": "cs-society-sarasota", "name": "Christian Science Society of Sarasota", "tradition": "Christianity", "denomination": "Christian Science", "city": "Sarasota", "county": "Sarasota", "lat": 27.336, "lng": -82.53, "website": "https://christiansciencesarasota.org"}, {"id": "third-cs-sarasota", "name": "Third Church of Christ, Scientist, Sarasota", "tradition": "Christianity", "denomination": "Christian Science", "city": "Sarasota", "county": "Sarasota", "lat": 27.336, "lng": -82.53, "website": "https://www.christiansciencechurchsarasota.com"}, {"id": "sarasota-sda", "name": "Sarasota Seventh-day Adventist Church", "tradition": "Christianity", "denomination": "Seventh-day Adventist", "address": "5764 Churchill Downs Rd", "city": "Sarasota", "zip": "34241", "county": "Sarasota", "lat": 27.2483, "lng": -82.44, "phone": "(941) 924-5797", "website": "https://sarasotasda.org", "email": "churchoffice@sarasotasda.org", "service_times": "Sat 11 AM"}, {"id": "mt-sinai-sda", "name": "Mount Sinai Seventh-day Adventist Church", "tradition": "Christianity", "denomination": "Seventh-day Adventist", "address": "3620 Leonard Reid Ave", "city": "Sarasota", "zip": "34234", "county": "Sarasota", "lat": 27.3614, "lng": -82.5258, "phone": "(941) 351-5972", "website": "https://mtsinaisrq.com", "service_times": "Sat 10:45 AM"}, {"id": "lds-sarasota", "name": "The Church of Jesus Christ of Latter-day Saints (Sarasota Ward)", "tradition": "Christianity", "denomination": "LDS / Mormon", "address": "7001 Beneva Rd", "city": "Sarasota", "zip": "34238", "county": "Sarasota", "lat": 27.2649, "lng": -82.4915, "website": "https://local.churchofjesuschrist.org/en/units/us/fl/sarasota-ward", "service_times": "Sun 9 AM"}, {"id": "jw-swift", "name": "Kingdom Hall of Jehovah's Witnesses (Swift Rd)", "tradition": "Christianity", "denomination": "Jehovah's Witnesses", "address": "4425 Swift Rd", "city": "Sarasota", "zip": "34231", "county": "Sarasota", "lat": 27.2823, "lng": -82.5079, "phone": "(941) 922-6330", "notes": "Address from third-party source — verify."}, {"id": "jw-17th", "name": "Kingdom Hall of Jehovah's Witnesses (17th St)", "tradition": "Christianity", "denomination": "Jehovah's Witnesses", "address": "5148 17th St", "city": "Sarasota", "zip": "34235", "county": "Sarasota", "lat": 27.3517, "lng": -82.4795, "notes": "Address from third-party source — verify."}, {"id": "jw-proctor", "name": "Kingdom Hall of Jehovah's Witnesses (Proctor Rd)", "tradition": "Christianity", "denomination": "Jehovah's Witnesses", "address": "5256 Proctor Rd", "city": "Sarasota", "zip": "34233", "county": "Sarasota", "lat": 27.288, "lng": -82.4682, "notes": "Address from Waze — verify."}, {"id": "south-shore", "name": "South Shore Community Church", "tradition": "Christianity", "denomination": "Non-denominational", "address": "1899 S Tuttle Ave", "city": "Sarasota", "zip": "34239", "county": "Sarasota", "lat": 27.3171, "lng": -82.5183, "phone": "(941) 362-3142", "website": "https://www.southshorechurch.com", "leader": "Dr. Nicholas Williams", "leader_title": "Senior Pastor", "service_times": "Sun 8:30, 10, 11:30 AM, 6 PM; Thu 6:30 PM", "size": "Large"}, {"id": "suncoast-community", "name": "Suncoast Community Church", "tradition": "Christianity", "denomination": "Non-denominational", "address": "8000 Hawkins Rd", "city": "Sarasota", "zip": "34241", "county": "Sarasota", "lat": 27.251, "lng": -82.4419, "website": "https://www.suncoastcommunity.com", "leader": "Dr. Larry Baucom", "leader_title": "Senior Pastor", "founded": 1998, "service_times": "Sun 9 AM"}, {"id": "the-360-church", "name": "The 360 Church", "tradition": "Christianity", "denomination": "Non-denominational", "address": "5250 McIntosh Rd", "city": "Sarasota", "zip": "34233", "county": "Sarasota", "lat": 27.2862, "lng": -82.4783, "phone": "(941) 363-6876", "website": "https://the360church.com", "email": "info@360church.com", "service_times": "Sun 8:45, 10:30 AM"}, {"id": "calvary-chapel-sarasota", "name": "Calvary Chapel Sarasota", "tradition": "Christianity", "denomination": "Calvary Chapel (non-denominational)", "address": "3800 27th Pkwy", "city": "Sarasota", "zip": "34235", "county": "Sarasota", "lat": 27.3548, "lng": -82.4849, "website": "https://ccsrq.cc", "leader": "Carl Dixon", "leader_title": "Senior Pastor", "founded": 1987, "service_times": "Sun 9, 11 AM", "notes": "Operates Calvary Chapel School."}, {"id": "grace-community-srq", "name": "Grace Community Church", "tradition": "Christianity", "denomination": "Non-denominational", "address": "6932 Professional Pkwy E", "city": "Sarasota", "zip": "34240", "county": "Sarasota", "lat": 27.3858, "lng": -82.4256, "phone": "(941) 921-5784", "website": "https://gracesarasota.com", "leader": "Dr. Chip Bennett", "leader_title": "Founding Senior Pastor", "founded": 2010, "service_times": "Sun 9, 10:45 AM", "size": "Large", "notes": "Lakewood Ranch campus at 4080 Lakewood Ranch Blvd N."}, {"id": "bedrock-church", "name": "Bedrock Church Sarasota", "tradition": "Christianity", "denomination": "Non-denominational", "address": "2035 Magnolia St", "city": "Sarasota", "zip": "34239", "county": "Sarasota", "lat": 27.3127, "lng": -82.5358, "phone": "(941) 208-3250", "website": "https://www.mybedrock.church", "leader": "Blake Harcup", "leader_title": "Pastor", "notes": "Co-located with Southside Baptist."}, {"id": "trinity-nazarene", "name": "Sarasota Trinity Church of the Nazarene", "tradition": "Christianity", "denomination": "Nazarene", "address": "3101 Wilkinson Rd", "city": "Sarasota", "zip": "34231", "county": "Sarasota", "lat": 27.279, "lng": -82.4995, "phone": "(941) 922-5133", "website": "https://www.sarasotatrinitynazarene.org", "leader": "Rev. Virgil Mills", "leader_title": "Pastor", "founded": 1967, "service_times": "Sun 11 AM"}, {"id": "faith-life", "name": "Faith Life Church", "tradition": "Christianity", "denomination": "Non-denominational", "sub_denomination": "Word of Faith", "address": "6980 Professional Pkwy E", "city": "Sarasota", "zip": "34240", "county": "Sarasota", "lat": 27.3858, "lng": -82.4259}, {"id": "freedom-bible", "name": "Freedom Bible Church", "tradition": "Christianity", "denomination": "Non-denominational", "city": "North Port", "county": "Sarasota", "lat": 27.044, "lng": -82.236, "website": "https://freedombiblechurch.com"}, {"id": "calvary-chapel-nokomis", "name": "Calvary Chapel of Venice (Nokomis)", "tradition": "Christianity", "denomination": "Calvary Chapel", "address": "602 Albee Farm Rd N", "city": "Nokomis", "zip": "34275", "county": "Sarasota", "lat": 27.1265, "lng": -82.4534}, {"id": "new-hope-nokomis", "name": "New Hope Christian Church", "tradition": "Christianity", "denomination": "Non-denominational", "city": "Nokomis", "zip": "34275", "county": "Sarasota", "lat": 27.119, "lng": -82.446, "website": "https://www.nhccnokomis.com"}, {"id": "nokomis-christian-fellowship", "name": "Nokomis Christian Fellowship", "tradition": "Christianity", "denomination": "Non-denominational", "address": "727 Shore Rd", "city": "Nokomis", "zip": "34275", "county": "Sarasota", "lat": 27.1199, "lng": -82.4575}, {"id": "temple-emanu-el", "name": "Temple Emanu-El of Sarasota", "tradition": "Judaism", "denomination": "Reform", "address": "151 McIntosh Rd", "city": "Sarasota", "zip": "34232", "county": "Sarasota", "lat": 27.3232, "lng": -82.4892, "phone": "(941) 371-2788", "website": "https://www.sarasotatemple.org", "leader": "Brenner Glickman", "leader_title": "Senior Rabbi", "founded": 1956, "service_times": "Fri 7:15 PM Shabbat; Sat 11 AM Torah Study", "size": "Large; largest synagogue in region"}, {"id": "temple-sinai", "name": "Temple Sinai", "tradition": "Judaism", "denomination": "Reform", "address": "4631 S Lockwood Ridge Rd", "city": "Sarasota", "zip": "34231", "county": "Sarasota", "lat": 27.2857, "lng": -82.4836, "phone": "(941) 924-1802", "website": "https://www.templesinai-sarasota.org", "email": "office@templesinai-sarasota.org", "leader": "Cliff Abramson", "leader_title": "Senior Clergy / Chazzan", "founded": 1991}, {"id": "jcv", "name": "Jewish Congregation of Venice", "tradition": "Judaism", "denomination": "Reform", "address": "600 N Auburn Rd", "city": "Venice", "zip": "34292", "county": "Sarasota", "lat": 27.1042, "lng": -82.4011, "phone": "(941) 484-2022", "website": "https://jewishcongregationofvenice.org", "leader": "Marci Vitkus", "leader_title": "Rabbi", "founded": 1980, "service_times": "Fri 7:30 PM Shabbat (in-person + Zoom)"}, {"id": "temple-beth-sholom", "name": "Temple Beth Sholom", "tradition": "Judaism", "denomination": "Conservative", "address": "1050 S Tuttle Ave, Bldg 2", "city": "Sarasota", "zip": "34237", "county": "Sarasota", "lat": 27.3274, "lng": -82.5215, "phone": "(941) 955-8121", "website": "https://templebethsholomfl.org", "email": "info@tbssrq.org", "leader": "Stuart Altshuler", "leader_title": "Rabbi", "founded": 1927, "service_times": "Fri 6:30 PM; Sat 9:30 AM (in-person + livestream)", "size": "~400 families", "notes": "Oldest synagogue in Sarasota."}, {"id": "kol-haneshama", "name": "Congregation Kol HaNeshama", "tradition": "Judaism", "denomination": "Reconstructionist", "address": "4335 Wilkinson Rd", "city": "Sarasota", "zip": "34233", "county": "Sarasota", "lat": 27.2862, "lng": -82.4734, "phone": "(941) 244-2042", "website": "https://khsarasota.org", "email": "mike.congkh@gmail.com", "leader": "Rabbi Sigal", "leader_title": "Rabbi", "service_times": "Fri 6 PM; Sat 10 AM", "notes": "Meets at Hershorin Schiff Community Day School."}, {"id": "chabad-sarasota", "name": "Chabad Lubavitch of Sarasota & Manatee Counties", "tradition": "Judaism", "denomination": "Orthodox (Chabad-Lubavitch)", "address": "7700 Beneva Rd", "city": "Sarasota", "zip": "34238", "county": "Sarasota", "lat": 27.2475, "lng": -82.476, "phone": "(941) 925-0770", "website": "https://www.sarasotachabad.com", "email": "info@chabadofsarasota.com", "leader": "Chaim Steinmetz", "leader_title": "Rabbi (Director)"}, {"id": "chabad-venice", "name": "Chabad of Venice & North Port", "tradition": "Judaism", "denomination": "Orthodox (Chabad-Lubavitch)", "address": "21560 Angela Lane", "city": "Venice", "zip": "34293", "county": "Sarasota", "lat": 27.059, "lng": -82.3493, "phone": "(941) 493-2770", "website": "https://www.chabadofvenice.com", "leader": "Sholom Ber Schmerling", "leader_title": "Rabbi (Director)"}, {"id": "mayim-chayim", "name": "Mayim Chayim Messianic Synagogue", "tradition": "Judaism", "denomination": "Messianic", "address": "8700 SR-72", "city": "Sarasota", "zip": "34241", "county": "Sarasota", "lat": 27.2731, "lng": -82.3677, "phone": "(941) 363-1820", "website": "https://www.mayimchayimfl.com", "email": "mayimchayimfl@gmail.com", "service_times": "Sat 11:30 AM", "notes": "UMJC-affiliated. Facility temporarily closed."}, {"id": "issb", "name": "Islamic Society of Sarasota and Bradenton (ISSB)", "tradition": "Islam", "denomination": "Sunni", "address": "4350 N Lockwood Ridge Rd", "city": "Sarasota", "zip": "34234", "county": "Sarasota", "lat": 27.3779, "lng": -82.4836, "phone": "(941) 351-3393", "website": "https://issb.net", "email": "info@issb.net", "leader": "Mohamed Ben Khaled", "leader_title": "Imam", "founded": 1992, "service_times": "Fri Jummah; daily 5 prayers", "notes": "Only mosque in Sarasota County. Multi-ethnic (~25 nationalities)."}, {"id": "nur-academy", "name": "Nur Academy", "tradition": "Islam", "denomination": "Sunni (school)", "address": "4350 N Lockwood Ridge Rd", "city": "Sarasota", "zip": "34234", "county": "Sarasota", "lat": 27.3779, "lng": -82.4836, "website": "https://nur-academy.org", "notes": "K-5 Islamic school co-located with ISSB."}, {"id": "kmc-florida", "name": "KMC Florida (Kadampa Meditation Center)", "tradition": "Buddhism", "denomination": "Kadampa", "sub_denomination": "New Kadampa Tradition", "address": "730 N Washington Blvd", "city": "Sarasota", "zip": "34236", "county": "Sarasota", "lat": 27.3461, "lng": -82.5345, "phone": "(941) 373-1600", "website": "https://meditationinsarasota.org", "email": "info@meditationinsarasota.org", "leader": "Gen Kelsang Lhadron", "leader_title": "Resident Teacher", "service_times": "Sun 11 AM; Tue 7 PM; Mon/Wed lunchtime; Fri 11 AM"}, {"id": "sarasota-forest", "name": "Sarasota Forest Monastery", "tradition": "Buddhism", "denomination": "Theravada", "sub_denomination": "Thai Forest (Dhammayut)", "address": "520 Lewis St", "city": "Englewood", "zip": "34223", "county": "Sarasota", "lat": 26.9617, "lng": -82.3528, "phone": "(914) 914-7504", "website": "https://sarasotaforestmonastery.org", "email": "SarasotaForestMonastery@gmail.com", "leader": "Ajaan Chichung Dhammattho", "leader_title": "Abbot", "founded": 2015}, {"id": "happy-monastery", "name": "Happy Monastery (Tu Viện Hạnh Phúc)", "tradition": "Buddhism", "denomination": "Mahayana", "sub_denomination": "Vietnamese", "address": "4101 S Lockwood Ridge Rd", "city": "Sarasota", "zip": "34231", "county": "Sarasota", "lat": 27.2778, "lng": -82.4906, "phone": "(727) 455-3498", "website": "https://www.facebook.com/happymonastery/", "leader": "Thầy Thích Tâm Nguyên", "leader_title": "Abbot/Teacher"}, {"id": "chua-linh-phong", "name": "Chua Linh Phong", "tradition": "Buddhism", "denomination": "Mahayana", "sub_denomination": "Vietnamese", "address": "4884 Elizabeth Ave", "city": "Sarasota", "zip": "34233", "county": "Sarasota", "lat": 27.2722, "lng": -82.4889, "phone": "(941) 923-6742", "website": "http://www.chualinhphong.com/"}, {"id": "sarasota-zen", "name": "Sarasota Zen Center", "tradition": "Buddhism", "denomination": "Zen", "sub_denomination": "Soto Zen", "address": "3131 Clark Rd", "city": "Sarasota", "zip": "34231", "county": "Sarasota", "lat": 27.2828, "lng": -82.5111, "website": "https://sarasotazencenter.org/"}, {"id": "srf-sarasota", "name": "Sarasota Meditation Circle of SRF", "tradition": "Hinduism / Yoga", "denomination": "Self-Realization Fellowship", "address": "3975 Fruitville Rd", "city": "Sarasota", "zip": "34232", "county": "Sarasota", "lat": 27.3414, "lng": -82.4881, "website": "https://yogananda.org/locations/sarasota-meditation-circle", "email": "sarasota.srf@gmail.com", "notes": "Meets in UU Church of Sarasota space."}, {"id": "wellness-space", "name": "The Wellness Space", "tradition": "Yoga / Wellness", "address": "1561 Lakefront Drive, Unit 208", "city": "Sarasota", "zip": "34240", "county": "Sarasota", "lat": 27.3325, "lng": -82.4108, "phone": "(941) 900-8064", "website": "https://thewellness-space.com", "email": "info@thewellness-space.com"}, {"id": "dharma-yoga", "name": "Dharma Yoga SRQ", "tradition": "Yoga / Wellness", "address": "7513 S Tamiami Trail", "city": "Sarasota", "zip": "34231", "county": "Sarasota", "lat": 27.2625, "lng": -82.5142, "phone": "(941) 702-0072", "website": "https://dharmayogasrq.com", "email": "dharmayogasrq@gmail.com", "leader": "Noelle and Jillian", "leader_title": "Instructors"}, {"id": "uu-sarasota", "name": "Unitarian Universalists of Sarasota", "tradition": "Unitarian Universalism", "denomination": "UUA", "address": "3975 Fruitville Rd", "city": "Sarasota", "zip": "34232", "county": "Sarasota", "lat": 27.3414, "lng": -82.4881, "phone": "(941) 371-4974", "website": "https://uusrq.org", "leader": "Rev. Jay Wolin", "leader_title": "Minister", "founded": 1952, "service_times": "Sun 10:30 AM (in-person + livestream)", "size": "~500 members; largest UU in FL"}, {"id": "uu-venice", "name": "UU Congregation of Venice", "tradition": "Unitarian Universalism", "denomination": "UUA", "address": "1971 Pinebrook Rd", "city": "Venice", "zip": "34292", "county": "Sarasota", "lat": 27.1064, "lng": -82.4117, "phone": "(941) 485-2105", "website": "https://uucov.org", "leader": "Rev. Dr. Amy Petrie Shaw", "leader_title": "Minister", "service_times": "Sun 10 AM"}, {"id": "bahai-srq", "name": "Bahá'ís of Sarasota & Manatee Counties", "tradition": "Bahá'í Faith", "denomination": "Bahá'í", "city": "Sarasota", "county": "Sarasota", "lat": 27.336, "lng": -82.53, "phone": "(941) 928-0317", "website": "https://srqbahai.org", "notes": "Local Spiritual Assembly; no public meeting house."}, {"id": "eckankar", "name": "Eckankar Center and Reading Room of Sarasota", "tradition": "New Religious Movement", "denomination": "Eckankar", "address": "3650 Webber St, Unit F", "city": "Sarasota", "zip": "34232", "county": "Sarasota", "lat": 27.3078, "lng": -82.5072, "phone": "(941) 358-0325", "website": "https://eck-florida.org"}, {"id": "scientology-srq", "name": "Church of Scientology Mission of Sarasota", "tradition": "New Religious Movement", "denomination": "Scientology", "address": "5500 Bentgrass Drive #114", "city": "Sarasota", "zip": "34235", "county": "Sarasota", "lat": 27.3508, "lng": -82.4632, "phone": "(941) 926-2466", "notes": "Tuesday Night Talks at 1242 Boulevard of the Arts."}, {"id": "sarasota-center-of-light", "name": "Sarasota Center of Light", "tradition": "Alternative Spirituality", "denomination": "Spiritualist", "city": "Sarasota", "county": "Sarasota", "lat": 27.336, "lng": -82.53, "phone": "(941) 953-6620", "website": "https://www.sarasotacenteroflight.com", "email": "churchoffice@sarasotacenteroflight.com", "founded": 1949, "notes": "Originally 'Shrine of the Master' — renamed 2010."}, {"id": "cosmic-center", "name": "Cosmic Center of Spiritual Light", "tradition": "Alternative Spirituality", "denomination": "Spiritualist / Educational", "address": "5041 Ringwood Meadow, Bldg G-25", "city": "Sarasota", "zip": "34235", "county": "Sarasota", "lat": 27.368, "lng": -82.4519, "phone": "(941) 371-9333", "website": "https://www.ccosl.com"}, {"id": "wild-ginger", "name": "Wild Ginger Apothecary", "tradition": "Alternative Spirituality", "denomination": "Metaphysical Shop", "address": "6557 Superior Ave", "city": "Sarasota", "zip": "34231", "county": "Sarasota", "lat": 27.2589, "lng": -82.5081, "phone": "(941) 924-4754", "website": "https://www.wildgingerapothecary.com", "notes": "Crystals, readings, yoga, sound healing."}, {"id": "pixie-dust", "name": "Pixie Dust SRQ", "tradition": "Alternative Spirituality", "denomination": "Metaphysical Shop", "address": "40 Sarasota Center Blvd, Unit 106", "city": "Sarasota", "zip": "34240", "county": "Sarasota", "lat": 27.3265, "lng": -82.4341, "phone": "(941) 366-6325", "website": "https://www.pixiedustsrq.com", "notes": "Moved from 1476 Main St (closed)."}, {"id": "logan-light", "name": "Logan Light Center", "tradition": "Alternative Spirituality", "denomination": "Modern Mystery School", "address": "4623 Oak Hill Terrace", "city": "Sarasota", "zip": "34232", "county": "Sarasota", "lat": 27.3242, "lng": -82.4651, "website": "https://www.loganlightcenter.com", "notes": "King Salomon lineage."}, {"id": "reiki-wellness", "name": "Center for Reiki Wellness and Past Life Regression", "tradition": "Alternative Spirituality", "denomination": "Reiki / Hypnosis", "address": "352 Somerset Ave, Ste 111", "city": "Sarasota", "zip": "34243", "county": "Sarasota", "lat": 27.392, "lng": -82.532, "website": "https://www.centerforreikiwellness.com", "leader": "Cyndy Paxton"}, {"id": "shaman-central", "name": "The Shaman Central", "tradition": "Alternative Spirituality", "denomination": "Shamanism / Reiki", "address": "2055 Wood St", "city": "Sarasota", "zip": "34237", "county": "Sarasota", "lat": 27.3296, "lng": -82.526, "phone": "(941) 928-4225", "website": "https://www.theshamancentral.com", "leader": "Eric Watrous", "founded": 2015}, {"id": "intuitive-pamela", "name": "Intuitive Energy Healing by Pamela", "tradition": "Alternative Spirituality", "denomination": "Reiki / Energy Healing", "address": "7727B Holiday Dr", "city": "Sarasota", "zip": "34231", "county": "Sarasota", "lat": 27.2718, "lng": -82.518, "phone": "(941) 323-3761", "website": "https://reikipam.wixsite.com/intuitiveenergy", "leader": "Pamela Parker"}, {"id": "rachel-norway", "name": "Psychic Medium Rachel Norway", "tradition": "Alternative Spirituality", "denomination": "Psychic / Medium", "city": "Sarasota", "zip": "34231", "county": "Sarasota", "lat": 27.27, "lng": -82.51, "phone": "(941) 770-0027", "website": "https://www.connectionswithrachel.com", "email": "connectionswithrachel@gmail.com", "notes": "By appointment; no public street address."}, {"id": "carolan-carey", "name": "The Psychic Medium of SRQ (Carolan Carey)", "tradition": "Alternative Spirituality", "denomination": "Psychic / Medium", "city": "Sarasota", "zip": "34232", "county": "Sarasota", "lat": 27.336, "lng": -82.5, "phone": "(941) 779-3971", "website": "https://www.carolancarey.com", "notes": "Established 2008. By appointment."}, {"id": "michael-sue-scott", "name": "Michael Sue Scott Intuitive Reader", "tradition": "Alternative Spirituality", "denomination": "Psychic / Tarot", "address": "5641 Summer Side Ln", "city": "Sarasota", "zip": "34231", "county": "Sarasota", "lat": 27.2654, "lng": -82.4977, "phone": "(941) 525-1011", "website": "https://www.michaelsuescott.com"}, {"id": "vivians", "name": "Vivian's Psychic Boutique", "tradition": "Alternative Spirituality", "denomination": "Psychic / Metaphysical Shop", "address": "312 S Washington Blvd", "city": "Sarasota", "zip": "34236", "county": "Sarasota", "lat": 27.3354, "lng": -82.536, "phone": "(954) 482-3845", "website": "http://www.vivianspsychicboutique.com"}, {"id": "my-star-angels", "name": "My Star Angels", "tradition": "Alternative Spirituality", "denomination": "Psychic / Medium", "address": "2803 Fruitville Rd, Ste 131", "city": "Sarasota", "zip": "34237", "county": "Sarasota", "lat": 27.337, "lng": -82.5102, "phone": "(941) 275-7966", "website": "https://mystarangels.com", "email": "sami@mystarangels.com", "leader": "Masami"}, {"id": "tourist-mennonite", "name": "Tourist Mennonite Church", "tradition": "Christianity", "denomination": "Mennonite", "sub_denomination": "Conservative Mennonite Conference", "address": "3340 Bahia Vista St", "city": "Sarasota", "zip": "34239", "county": "Sarasota", "region": "Pinecraft", "lat": 27.327, "lng": -82.5018, "phone": "", "website": "", "service_times": "Sun 9:30 AM", "founded": 1946, "notes": "Heart of the Pinecraft Amish-Mennonite snowbird community. Building purchased 1946. Serves the seasonal Amish/Mennonite population (Nov–Apr)."}, {"id": "bahia-vista-mennonite", "name": "Bahia Vista Mennonite Church", "tradition": "Christianity", "denomination": "Mennonite", "sub_denomination": "Mennonite Church USA", "address": "4041 Bahia Vista St", "city": "Sarasota", "zip": "34232", "county": "Sarasota", "region": "Pinecraft", "lat": 27.327, "lng": -82.49, "phone": "", "website": "https://www.bahiavistachurch.org", "notes": "Formerly Tuttle Avenue Mennonite Church. MCUSA-affiliated; serves the Pinecraft community."}, {"id": "palm-grove-mennonite", "name": "Palm Grove Mennonite Church", "tradition": "Christianity", "denomination": "Mennonite", "address": "1087 S Beneva Rd", "city": "Sarasota", "zip": "34232", "county": "Sarasota", "lat": 27.326, "lng": -82.478, "phone": "", "website": "https://www.palmgrovemennonitechurch.com", "notes": "Mennonite congregation near Pinecraft, on Beneva Rd."}, {"id": "sunnyside-mennonite", "name": "Sunnyside Mennonite Church", "tradition": "Christianity", "denomination": "Mennonite", "address": "1001 Honore Ave", "city": "Sarasota", "zip": "34232", "county": "Sarasota", "lat": 27.326, "lng": -82.452, "phone": "", "website": "", "founded": 1968, "notes": "Operates Sunnyside Mennonite School at the same address."}, {"id": "pinecraft-amish", "name": "Pinecraft Amish Church", "tradition": "Christianity", "denomination": "Amish", "sub_denomination": "Old Order Amish", "address": "1325 Hines Ave", "city": "Sarasota", "zip": "34239", "county": "Sarasota", "region": "Pinecraft", "lat": 27.3287, "lng": -82.5012, "phone": "", "website": "", "notes": "Unusual: one of the only standalone Amish church buildings in the U.S. (most Amish worship rotates through homes weekly). Pinecraft also hosts additional in-home Amish services on Schrock St and at Pinecraft Park during the Nov–Apr snowbird season. ~3,000 seasonal Amish & Mennonite residents make Pinecraft the largest Amish winter community in Florida."}];
+const NEIGHBORHOODS = [{"name": "Pinecraft / Bahia Vista", "polygon": [[27.318, -82.51], [27.318, -82.483], [27.336, -82.483], [27.336, -82.51]]}, {"name": "Bird Key / Lido / St. Armand's", "polygon": [[27.3, -82.585], [27.3, -82.553], [27.328, -82.553], [27.328, -82.585]]}, {"name": "Downtown / Bayfront", "polygon": [[27.328, -82.555], [27.328, -82.528], [27.345, -82.528], [27.345, -82.555]]}, {"name": "Newtown / North Sarasota", "polygon": [[27.345, -82.555], [27.345, -82.518], [27.385, -82.518], [27.385, -82.555]]}, {"name": "Indian Beach / Sapphire Shores", "polygon": [[27.355, -82.58], [27.355, -82.555], [27.385, -82.555], [27.385, -82.58]]}, {"name": "Siesta Key", "polygon": [[27.24, -82.56], [27.24, -82.52], [27.295, -82.52], [27.295, -82.56]]}, {"name": "Gulf Gate / South Sarasota", "polygon": [[27.245, -82.53], [27.245, -82.495], [27.3, -82.495], [27.3, -82.53]]}, {"name": "Bee Ridge / Sarasota Springs", "polygon": [[27.27, -82.495], [27.27, -82.43], [27.355, -82.43], [27.355, -82.495]]}, {"name": "Lakewood Ranch (SC)", "polygon": [[27.355, -82.47], [27.355, -82.39], [27.42, -82.39], [27.42, -82.47]]}, {"name": "Osprey", "polygon": [[27.165, -82.51], [27.165, -82.45], [27.22, -82.45], [27.22, -82.51]]}, {"name": "Nokomis", "polygon": [[27.105, -82.485], [27.105, -82.43], [27.165, -82.43], [27.165, -82.485]]}, {"name": "Venice", "polygon": [[27.06, -82.47], [27.06, -82.39], [27.105, -82.39], [27.105, -82.47]]}, {"name": "North Port", "polygon": [[27.02, -82.29], [27.02, -82.18], [27.08, -82.18], [27.08, -82.29]]}, {"name": "Englewood", "polygon": [[26.94, -82.385], [26.94, -82.33], [26.985, -82.33], [26.985, -82.385]]}];
+
+const TRADITIONS = {
+  "Christianity": { color: "#2563eb", svg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22"><path fill="#ffffff" d="M10 2h4v6h6v4h-6v10h-4V12H4V8h6z"/></svg>' },
+  "Judaism": { color: "#d4a017", svg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22"><polygon fill="#ffffff" points="12,2 19.5,16 4.5,16"/><polygon fill="#ffffff" points="12,22 4.5,8 19.5,8"/></svg>' },
+  "Islam": { color: "#15803d", svg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22"><path fill="#ffffff" fill-rule="evenodd" d="M10 12 a 8 8 0 1 1 16 0 a 8 8 0 1 1 -16 0 z M14.5 12 a 6.5 6.5 0 1 1 13 0 a 6.5 6.5 0 1 1 -13 0 z"/><polygon fill="#ffffff" points="18,7.5 18.7,9.5 20.8,9.5 19.05,10.7 19.7,12.7 18,11.45 16.3,12.7 16.95,10.7 15.2,9.5 17.3,9.5"/></svg>' },
+  "Buddhism": { color: "#7c3aed", svg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22"><circle cx="12" cy="12" r="9" fill="none" stroke="#ffffff" stroke-width="1.7"/><circle cx="12" cy="12" r="2" fill="#ffffff"/><line x1="12" y1="3" x2="12" y2="21" stroke="#ffffff" stroke-width="1.7"/><line x1="3" y1="12" x2="21" y2="12" stroke="#ffffff" stroke-width="1.7"/><line x1="5.6" y1="5.6" x2="18.4" y2="18.4" stroke="#ffffff" stroke-width="1.7"/><line x1="18.4" y1="5.6" x2="5.6" y2="18.4" stroke="#ffffff" stroke-width="1.7"/></svg>' },
+  "Hinduism / Yoga": { color: "#ea580c", svg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22"><text x="12" y="19" text-anchor="middle" font-size="22" fill="#ffffff" font-family="Georgia, serif" font-weight="bold">ॐ</text></svg>' },
+  "Unitarian Universalism": { color: "#0891b2", svg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22"><path fill="#ffffff" d="M12 2 C10 4 10.5 7 12 8 C13.5 7 14 4 12 2 Z"/><path fill="#ffffff" d="M6 9 L18 9 L16.5 14 L7.5 14 Z"/><rect fill="#ffffff" x="11" y="14" width="2" height="3"/><rect fill="#ffffff" x="6.5" y="17" width="11" height="2.5" rx="0.5"/></svg>' },
+  "Bahá'í Faith": { color: "#0d9488", svg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22"><polygon fill="#ffffff" points="12,2 13.4,8.3 19.6,5.9 16.1,11.4 21.7,14.4 15.5,15.8 16.6,22 12,17.8 7.4,22 8.5,15.8 2.3,14.4 7.9,11.4 4.4,5.9 10.6,8.3"/></svg>' },
+  "New Religious Movement": { color: "#db2777", svg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22"><path fill="#ffffff" d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z"/></svg>' },
+  "Alternative Spirituality": { color: "#c026d3", svg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22"><polygon fill="#ffffff" points="12,2 21,9 12,22 3,9"/><line x1="3" y1="9" x2="21" y2="9" stroke="#c026d3" stroke-width="1"/></svg>' },
+  "Yoga / Wellness": { color: "#65a30d", svg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22"><path fill="#ffffff" d="M12 20 C12 17 8 14 4 14 C4.5 19 8 20 12 20 Z M12 20 C12 17 16 14 20 14 C19.5 19 16 20 12 20 Z M12 20 C9 18 7.5 14 8.5 10 C12 12 13 16 12 20 Z M12 20 C15 18 16.5 14 15.5 10 C12 12 11 16 12 20 Z M12 20 C12 15 12 10 12 8 C12 12 12 16 12 20 Z"/></svg>' }
+};
+
+function tradInfo(t) { return TRADITIONS[t] || { color: "#475569", svg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22"><circle cx="12" cy="12" r="6" fill="#ffffff"/></svg>' }; }
+
+function groupFor(r) {
+  const t = r.tradition;
+  if (t === "Christianity") {
+    const d = (r.denomination || "").toLowerCase();
+    const sub = (r.sub_denomination || "").toLowerCase();
+    if (d.startsWith("amish") || d.startsWith("mennonite") || d.includes("anabaptist")) return "Anabaptist (Mennonite & Amish)";
+    if (d.includes("catholic") && !d.includes("orthodox")) return "Catholic";
+    if (d.includes("orthodox")) return "Eastern Orthodox";
+    if (d.includes("seventh-day adventist")) return "Adventist (SDA)";
+    if (d.includes("lds") || d.includes("mormon")) return "Latter-day Saints";
+    if (d.includes("jehovah")) return "Jehovah's Witnesses";
+    if (d.includes("christian science")) return "Christian Science";
+    if (d.includes("quaker") || d.includes("friends")) return "Quaker";
+    if (d.includes("pentecostal") || d.includes("charismatic") || d.includes("cogic") || sub.includes("assembl") || sub.includes("upci") || sub.includes("cleveland")) return "Pentecostal & Charismatic";
+    if (d.includes("episcopal")) return "Mainline Protestant";
+    if (d.includes("united methodist") || d.includes("united church of christ") || d.includes("disciples of christ") || d.includes("ame")) return "Mainline Protestant";
+    if (d.includes("lutheran")) return sub.includes("lcms") ? "Evangelical Protestant" : "Mainline Protestant";
+    if (d.includes("presbyterian")) return sub.includes("pca") ? "Evangelical Protestant" : "Mainline Protestant";
+    if (d.includes("methodist")) return "Mainline Protestant";
+    if (d.includes("baptist") || d.includes("non-denom") || d.includes("calvary chapel") || d.includes("nazarene") || d.includes("christian church")) return "Evangelical Protestant";
+    if (d.includes("churches of christ")) return "Restoration Movement";
+    return "Other Christian";
+  }
+  if (t === "Yoga / Wellness") return "Yoga & Wellness Studio";
+  return r.denomination || "(unspecified)";
+}
+
+// === Map setup ===
+const map = L.map("map").setView([27.27, -82.45], 11);
+L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", { attribution: "© OpenStreetMap · © CARTO", maxZoom: 19, subdomains: "abcd" }).addTo(map);
+const cluster = L.markerClusterGroup({ maxClusterRadius: 45, spiderfyOnMaxZoom: true, showCoverageOnHover: false });
+map.addLayer(cluster);
+
+// === Neighborhood layer (colored per neighborhood, with counts) ===
+// Distinct hue per neighborhood — 14 curated colors
+const NBHD_COLORS = [
+  "#ef4444", // Pinecraft
+  "#0ea5e9", // Bird Key / Lido / St. Armand's
+  "#6366f1", // Downtown / Bayfront
+  "#f59e0b", // Newtown
+  "#ec4899", // Indian Beach / Sapphire Shores
+  "#14b8a6", // Siesta Key
+  "#84cc16", // Gulf Gate
+  "#a855f7", // Bee Ridge / Sarasota Springs
+  "#10b981", // Lakewood Ranch
+  "#d946ef", // Osprey
+  "#f97316", // Nokomis
+  "#06b6d4", // Venice
+  "#eab308", // North Port
+  "#be185d"  // Englewood
+];
+
+// Pre-compute counts per neighborhood
+const nbhdCounts = {};
+INSTITUTIONS.forEach(r => {
+  if (typeof r.lat !== "number" || typeof r.lng !== "number") return;
+  for (const n of NEIGHBORHOODS) {
+    if (pointInPolygon(r.lat, r.lng, n.polygon)) {
+      nbhdCounts[n.name] = (nbhdCounts[n.name] || 0) + 1;
+      break;
+    }
+  }
+});
+
+const neighborhoodLayer = L.layerGroup();
+NEIGHBORHOODS.forEach((n, i) => {
+  const color = NBHD_COLORS[i % NBHD_COLORS.length];
+  const count = nbhdCounts[n.name] || 0;
+  const poly = L.polygon(n.polygon, {
+    color: color,
+    weight: 2,
+    fillColor: color,
+    fillOpacity: 0.13,
+    dashArray: "5 4",
+    interactive: false
+  });
+  const center = poly.getBounds().getCenter();
+  const labelHtml = '<span class="nbhd-dot" style="background:' + color + '"></span><span>' + n.name + '</span><span class="nbhd-count">' + count + '</span>';
+  const label = L.marker(center, {
+    icon: L.divIcon({
+      className: "neighborhood-label",
+      html: labelHtml,
+      iconSize: null
+    }),
+    interactive: false
+  });
+  neighborhoodLayer.addLayer(poly);
+  neighborhoodLayer.addLayer(label);
+});
+
+// Point-in-polygon (ray casting)
+function pointInPolygon(lat, lng, polygon) {
+  let inside = false;
+  for (let i = 0, j = polygon.length - 1; i < polygon.length; j = i++) {
+    const [latI, lngI] = polygon[i];
+    const [latJ, lngJ] = polygon[j];
+    const intersect = ((lngI > lng) !== (lngJ > lng)) &&
+      (lat < (latJ - latI) * (lng - lngI) / (lngJ - lngI) + latI);
+    if (intersect) inside = !inside;
+  }
+  return inside;
+}
+
+function neighborhoodFor(r) {
+  if (typeof r.lat !== "number" || typeof r.lng !== "number") return null;
+  for (const n of NEIGHBORHOODS) {
+    if (pointInPolygon(r.lat, r.lng, n.polygon)) return n.name;
+  }
+  return null;
+}
+
+const state = { data: INSTITUTIONS, search: "", active: new Set(), tree: {}, neighborhoodsOn: false };
+
+function makeIcon(tradition) {
+  const t = tradInfo(tradition);
+  return L.divIcon({ className: "", html: '<div class="marker-symbol" style="background:' + t.color + '">' + t.svg + '</div>', iconSize: [36, 36], iconAnchor: [18, 18], popupAnchor: [0, -18] });
+}
+
+function escapeHtml(s) { return (s || "").toString().replace(/[<>&"]/g, c => ({"<":"&lt;",">":"&gt;","&":"&amp;",'"':"&quot;"}[c])); }
+
+function popupHtml(r) {
+  const t = tradInfo(r.tradition);
+  const lines = [];
+  lines.push('<div class="popup-name">' + escapeHtml(r.name) + '</div>');
+  let trad = escapeHtml(r.tradition);
+  if (r.denomination) trad += " · " + escapeHtml(r.denomination);
+  lines.push('<span class="popup-tradition" style="background:' + t.color + '"><span class="tag-icon">' + t.svg + '</span>' + trad + '</span>');
+  if (r.address) lines.push('<div class="popup-row">' + escapeHtml(r.address) + ", " + escapeHtml(r.city) + " " + escapeHtml(r.zip || "") + '</div>');
+  else if (r.city) lines.push('<div class="popup-row">' + escapeHtml(r.city) + (r.zip ? " " + escapeHtml(r.zip) : "") + '</div>');
+  const nbhd = neighborhoodFor(r);
+  if (nbhd) lines.push('<div class="popup-row" style="font-size:11px;color:#64748b;">📍 ' + escapeHtml(nbhd) + '</div>');
+  if (r.phone) lines.push('<div class="popup-row"><a href="tel:' + escapeHtml(r.phone) + '">' + escapeHtml(r.phone) + '</a></div>');
+  if (r.website) {
+    const display = r.website.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "");
+    lines.push('<div class="popup-row"><a href="' + escapeHtml(r.website) + '" target="_blank" rel="noopener">' + escapeHtml(display) + '</a></div>');
+  }
+  if (r.leader) lines.push('<div class="popup-row"><strong>' + escapeHtml(r.leader_title || "Leader") + ':</strong> ' + escapeHtml(r.leader) + '</div>');
+  if (r.service_times) lines.push('<div class="popup-row"><strong>Services:</strong> ' + escapeHtml(r.service_times) + '</div>');
+  if (r.founded) lines.push('<div class="popup-row"><strong>Founded:</strong> ' + r.founded + '</div>');
+  if (r.size) lines.push('<div class="popup-row"><strong>Size:</strong> ' + escapeHtml(r.size) + '</div>');
+  if (r.notes) lines.push('<div class="popup-notes">' + escapeHtml(r.notes) + '</div>');
+  return lines.join("");
+}
+
+function buildTree() {
+  const tree = {};
+  for (const r of state.data) {
+    const t = r.tradition || "Other";
+    const g = groupFor(r);
+    tree[t] = tree[t] || {};
+    tree[t][g] = (tree[t][g] || 0) + 1;
+  }
+  state.tree = tree;
+  state.active = new Set();
+  for (const t of Object.keys(tree)) for (const g of Object.keys(tree[t])) state.active.add(t + "::" + g);
+}
+
+function totalFor(t) { return Object.values(state.tree[t]).reduce((s, n) => s + n, 0); }
+function hexToRgba(hex, a) { const m = hex.replace("#", ""); const r = parseInt(m.substring(0, 2), 16); const g = parseInt(m.substring(2, 4), 16); const b = parseInt(m.substring(4, 6), 16); return "rgba(" + r + "," + g + "," + b + "," + a + ")"; }
+
+function renderTiles() {
+  const root = document.getElementById("tiles");
+  root.innerHTML = "";
+  const traditions = Object.keys(state.tree).sort((a, b) => totalFor(b) - totalFor(a));
+  for (const t of traditions) {
+    const info = tradInfo(t);
+    const total = totalFor(t);
+    const groups = Object.keys(state.tree[t]).sort((a, b) => state.tree[t][b] - state.tree[t][a]);
+    const hasMultipleGroups = groups.length > 1;
+    const block = document.createElement("div");
+    block.className = "tradition-block";
+    const tradTile = document.createElement("div");
+    tradTile.className = "tile tradition-tile";
+    tradTile.style.setProperty("--tc", info.color);
+    tradTile.style.setProperty("--tc-shadow", hexToRgba(info.color, 0.35));
+    tradTile.dataset.tradition = t;
+    const iconHtml = '<span class="tile-icon">' + info.svg + '</span>';
+    const bodyHtml = '<span class="tile-body"><span class="tile-name">' + escapeHtml(t) + '</span><span class="tile-count">' + total + ' place' + (total !== 1 ? "s" : "") + '</span></span>';
+    const chevronHtml = hasMultipleGroups ? '<button class="tile-chevron" title="Show denominations">▶</button>' : "";
+    tradTile.innerHTML = iconHtml + bodyHtml + chevronHtml;
+    tradTile.addEventListener("click", (e) => { if (e.target.closest(".tile-chevron")) return; toggleTradition(t); });
+    block.appendChild(tradTile);
+    if (hasMultipleGroups) {
+      const children = document.createElement("div");
+      children.className = "tile-children";
+      children.style.display = "none";
+      for (const g of groups) {
+        const groupTile = document.createElement("div");
+        groupTile.className = "tile group-tile";
+        groupTile.style.setProperty("--tc", info.color);
+        groupTile.style.setProperty("--tc-shadow", hexToRgba(info.color, 0.35));
+        groupTile.dataset.tradition = t;
+        groupTile.dataset.group = g;
+        groupTile.innerHTML = '<span class="tile-icon">' + info.svg + '</span><span class="tile-body"><span class="tile-name">' + escapeHtml(g) + '</span><span class="tile-count">' + state.tree[t][g] + '</span></span>';
+        groupTile.addEventListener("click", () => toggleGroup(t, g));
+        children.appendChild(groupTile);
+      }
+      block.appendChild(children);
+      const chevron = tradTile.querySelector(".tile-chevron");
+      chevron.addEventListener("click", (e) => { e.stopPropagation(); const isHidden = children.style.display === "none"; children.style.display = isHidden ? "flex" : "none"; chevron.textContent = isHidden ? "▼" : "▶"; });
+    }
+    root.appendChild(block);
+  }
+  refreshTileStates();
+}
+
+function toggleTradition(t) {
+  const groups = Object.keys(state.tree[t]);
+  const allOn = groups.every(g => state.active.has(t + "::" + g));
+  if (allOn) groups.forEach(g => state.active.delete(t + "::" + g));
+  else groups.forEach(g => state.active.add(t + "::" + g));
+  refreshTileStates();
+  renderMarkers();
+}
+
+function toggleGroup(t, g) {
+  const k = t + "::" + g;
+  if (state.active.has(k)) state.active.delete(k);
+  else state.active.add(k);
+  refreshTileStates();
+  renderMarkers();
+}
+
+function refreshTileStates() {
+  document.querySelectorAll(".tradition-tile").forEach(tile => {
+    const t = tile.dataset.tradition;
+    const groups = Object.keys(state.tree[t]);
+    const onCount = groups.filter(g => state.active.has(t + "::" + g)).length;
+    tile.classList.remove("off", "partial");
+    if (onCount === 0) tile.classList.add("off");
+    else if (onCount < groups.length) tile.classList.add("partial");
+  });
+  document.querySelectorAll(".group-tile").forEach(tile => {
+    const k = tile.dataset.tradition + "::" + tile.dataset.group;
+    tile.classList.toggle("off", !state.active.has(k));
+  });
+}
+
+function passesFilter(r) {
+  const k = r.tradition + "::" + groupFor(r);
+  if (!state.active.has(k)) return false;
+  if (state.search) {
+    const q = state.search.toLowerCase();
+    const hay = [r.name, r.address, r.city, r.leader, r.denomination, r.sub_denomination].filter(Boolean).join(" ").toLowerCase();
+    if (!hay.includes(q)) return false;
+  }
+  return true;
+}
+
+function renderMarkers() {
+  cluster.clearLayers();
+  let visible = 0;
+  for (const r of state.data) {
+    if (!passesFilter(r)) continue;
+    if (typeof r.lat !== "number" || typeof r.lng !== "number") continue;
+    visible++;
+    const m = L.marker([r.lat, r.lng], { icon: makeIcon(r.tradition), title: r.name });
+    m.bindPopup(popupHtml(r), { maxWidth: 300 });
+    cluster.addLayer(m);
+  }
+  document.getElementById("counts").innerHTML = "Showing <strong>" + visible + "</strong> of <strong>" + state.data.length + "</strong> institutions";
+}
+
+document.getElementById("search").addEventListener("input", (e) => { state.search = e.target.value.trim(); renderMarkers(); });
+document.getElementById("select-all").addEventListener("click", () => {
+  state.active = new Set();
+  for (const t of Object.keys(state.tree)) for (const g of Object.keys(state.tree[t])) state.active.add(t + "::" + g);
+  refreshTileStates();
+  renderMarkers();
+});
+document.getElementById("select-none").addEventListener("click", () => { state.active = new Set(); refreshTileStates(); renderMarkers(); });
+
+// === Neighborhood layer toggle ===
+const nbhdToggle = document.getElementById("toggle-neighborhoods");
+nbhdToggle.addEventListener("click", () => {
+  state.neighborhoodsOn = !state.neighborhoodsOn;
+  nbhdToggle.classList.toggle("on", state.neighborhoodsOn);
+  if (state.neighborhoodsOn) map.addLayer(neighborhoodLayer);
+  else map.removeLayer(neighborhoodLayer);
+});
+
+// === CHATBOT ===
+const TERMS = [
+  // Tradition / denomination matchers
+  { keys: ["catholic","catholics"], filter: r => /catholic/i.test(r.denomination||""), label: "Catholic church", labelP: "Catholic churches" },
+  { keys: ["jewish","synagogue","synagogues","jew","jews"], filter: r => r.tradition === "Judaism", label: "Jewish congregation", labelP: "Jewish congregations" },
+  { keys: ["mosque","mosques","muslim","muslims","islamic","islam"], filter: r => r.tradition === "Islam", label: "mosque", labelP: "mosques" },
+  { keys: ["buddhist","buddhists","buddhism","buddha"], filter: r => r.tradition === "Buddhism", label: "Buddhist temple/center", labelP: "Buddhist temples/centers" },
+  { keys: ["hindu","hinduism"], filter: r => r.tradition === "Hinduism / Yoga", label: "Hindu/SRF center", labelP: "Hindu/SRF centers" },
+  { keys: ["christian","christians","christianity","church","churches"], filter: r => r.tradition === "Christianity", label: "Christian church", labelP: "Christian churches" },
+  { keys: ["amish"], filter: r => /amish/i.test(r.denomination||""), label: "Amish church", labelP: "Amish churches" },
+  { keys: ["mennonite","mennonites"], filter: r => /mennonite/i.test(r.denomination||""), label: "Mennonite church", labelP: "Mennonite churches" },
+  { keys: ["presbyterian","presbyterians"], filter: r => /presbyterian/i.test(r.denomination||""), label: "Presbyterian church", labelP: "Presbyterian churches" },
+  { keys: ["baptist","baptists"], filter: r => /baptist/i.test(r.denomination||""), label: "Baptist church", labelP: "Baptist churches" },
+  { keys: ["methodist","methodists"], filter: r => /methodist/i.test(r.denomination||""), label: "Methodist church", labelP: "Methodist churches" },
+  { keys: ["lutheran","lutherans"], filter: r => /lutheran/i.test(r.denomination||""), label: "Lutheran church", labelP: "Lutheran churches" },
+  { keys: ["episcopal","episcopalian"], filter: r => /episcopal/i.test(r.denomination||""), label: "Episcopal church", labelP: "Episcopal churches" },
+  { keys: ["orthodox"], filter: r => /orthodox/i.test(r.denomination||""), label: "Orthodox church", labelP: "Orthodox churches" },
+  { keys: ["pentecostal","pentecostals","charismatic"], filter: r => /pentecostal|charismatic|cogic/i.test((r.denomination||"")+" "+(r.sub_denomination||"")), label: "Pentecostal/Charismatic church", labelP: "Pentecostal/Charismatic churches" },
+  { keys: ["chabad"], filter: r => /chabad/i.test((r.name||"")+" "+(r.denomination||"")), label: "Chabad center", labelP: "Chabad centers" },
+  { keys: ["reform"], filter: r => r.tradition === "Judaism" && /reform/i.test(r.denomination||""), label: "Reform synagogue", labelP: "Reform synagogues" },
+  { keys: ["conservative"], filter: r => r.tradition === "Judaism" && /conservative/i.test(r.denomination||""), label: "Conservative synagogue", labelP: "Conservative synagogues" },
+  { keys: ["psychic","psychics","medium","mediums"], filter: r => /psychic|medium/i.test((r.denomination||"")+" "+(r.name||"")), label: "psychic/medium", labelP: "psychics/mediums" },
+  { keys: ["yoga"], filter: r => /yoga/i.test(r.tradition+" "+(r.denomination||"")), label: "yoga center", labelP: "yoga centers" },
+  { keys: ["unitarian","uu"], filter: r => r.tradition === "Unitarian Universalism", label: "UU congregation", labelP: "UU congregations" },
+  { keys: ["bahai","baha'i","bahá'í"], filter: r => /bah/i.test(r.tradition), label: "Bahá'í center", labelP: "Bahá'í centers" },
+  { keys: ["jehovah","witness","witnesses","kingdom hall"], filter: r => /jehovah/i.test(r.denomination||""), label: "Kingdom Hall", labelP: "Kingdom Halls" },
+  { keys: ["mormon","mormons","lds","latter-day","latter day"], filter: r => /lds|mormon/i.test(r.denomination||""), label: "LDS ward", labelP: "LDS wards" },
+  { keys: ["adventist","adventists","sda"], filter: r => /adventist/i.test(r.denomination||""), label: "SDA church", labelP: "SDA churches" },
+  { keys: ["quaker","quakers","friends meeting"], filter: r => /quaker|friends/i.test(r.denomination||""), label: "Quaker meeting", labelP: "Quaker meetings" },
+  { keys: ["scientology","scientologist"], filter: r => /scientology/i.test(r.denomination||""), label: "Scientology mission", labelP: "Scientology missions" },
+  { keys: ["metaphysical"], filter: r => r.tradition === "Alternative Spirituality", label: "metaphysical site", labelP: "metaphysical sites" },
+  { keys: ["spiritualist"], filter: r => /spiritualist/i.test(r.denomination||""), label: "Spiritualist church", labelP: "Spiritualist churches" },
+  // Cities (treated separately for "in X" queries)
+  { keys: ["sarasota"], cityMatch: "Sarasota", label: "place in Sarasota", labelP: "places in Sarasota", isCity: true },
+  { keys: ["venice"], cityMatch: "Venice", label: "place in Venice", labelP: "places in Venice", isCity: true },
+  { keys: ["north port"], cityMatch: "North Port", label: "place in North Port", labelP: "places in North Port", isCity: true },
+  { keys: ["englewood"], cityMatch: "Englewood", label: "place in Englewood", labelP: "places in Englewood", isCity: true },
+  { keys: ["osprey"], cityMatch: "Osprey", label: "place in Osprey", labelP: "places in Osprey", isCity: true },
+  { keys: ["nokomis"], cityMatch: "Nokomis", label: "place in Nokomis", labelP: "places in Nokomis", isCity: true },
+];
+
+function findTerm(q) {
+  for (const t of TERMS) {
+    for (const k of t.keys) {
+      const re = new RegExp("\\b" + k.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "\\b", "i");
+      if (re.test(q)) return t;
+    }
+  }
+  return null;
+}
+
+function applyTermFilter(term, list) {
+  if (term.isCity) return list.filter(r => r.city === term.cityMatch);
+  if (term.filter) return list.filter(term.filter);
+  return list;
+}
+
+function ucfirst(s){ return s ? s[0].toUpperCase() + s.slice(1) : s; }
+
+function md(s) {
+  return s.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
+}
+
+function chatAnswer(text) {
+  const ql = (text || "").toLowerCase().trim().replace(/[?!.]+$/, "");
+  if (!ql) return "Ask me anything about the directory.";
+
+  // Greeting / help
+  if (/^(hi|hello|hey|help|what can you|what do you|how does this work)\b/i.test(ql)) {
+    return "I can answer questions about the **123 places** in this directory. Try:<br>• How many Catholic churches?<br>• Which neighborhood has the most worship sites?<br>• What is the oldest synagogue?<br>• List all mosques<br>• Where is the Hindu temple?<br>• How many places in Venice?";
+  }
+
+  // Total
+  if (/^(how many|count|number of)\s+(places|sites|institutions|congregations|spiritual sites|worship)/.test(ql) && !/in\s+\w/.test(ql) && !findTerm(ql)) {
+    return "The directory contains **" + INSTITUTIONS.length + "** institutions across **" + Object.keys(state.tree).length + "** traditions.";
+  }
+
+  // "Most" — neighborhood, tradition, denomination, city
+  if (/\bmost\b/.test(ql) || /\b(top|popular)\b/.test(ql) || /^which\s+\w+\s+has/.test(ql)) {
+    if (/neighborhood|area|zone/.test(ql)) {
+      const counts = {};
+      INSTITUTIONS.forEach(r => { const n = neighborhoodFor(r); if (n) counts[n] = (counts[n]||0)+1; });
+      const sorted = Object.entries(counts).sort((a,b) => b[1]-a[1]);
+      if (!sorted.length) return "I couldn't compute neighborhoods.";
+      const top = sorted[0];
+      const list = sorted.slice(0,5).map(([n,c]) => `${n} (${c})`).join(", ");
+      return `**${top[0]}** has the most worship sites with **${top[1]}** institutions.<br><br>Top 5: ${list}.`;
+    }
+    if (/tradition|religion|faith/.test(ql)) {
+      const counts = {};
+      INSTITUTIONS.forEach(r => { counts[r.tradition] = (counts[r.tradition]||0)+1; });
+      const sorted = Object.entries(counts).sort((a,b) => b[1]-a[1]);
+      const list = sorted.map(([t,c]) => `${t} (${c})`).join(", ");
+      return `By tradition: ${list}. The most represented is **${sorted[0][0]}**.`;
+    }
+    if (/city|cities|town/.test(ql)) {
+      const counts = {};
+      INSTITUTIONS.forEach(r => { if (r.city) counts[r.city] = (counts[r.city]||0)+1; });
+      const sorted = Object.entries(counts).sort((a,b) => b[1]-a[1]);
+      const list = sorted.map(([c,n]) => `${c} (${n})`).join(", ");
+      return `By city: ${list}.`;
+    }
+    if (/denomination|christian/.test(ql)) {
+      const counts = {};
+      INSTITUTIONS.filter(r => r.tradition === "Christianity").forEach(r => { const g = groupFor(r); counts[g] = (counts[g]||0)+1; });
+      const sorted = Object.entries(counts).sort((a,b) => b[1]-a[1]);
+      const list = sorted.map(([t,c]) => `${t} (${c})`).join(", ");
+      return `Christian denominations: ${list}. The largest is **${sorted[0][0]}**.`;
+    }
+    // Largest individual congregation
+    if (/biggest|largest/.test(ql)) {
+      const sized = INSTITUTIONS.filter(r => r.size && /large|mega/i.test(r.size));
+      if (sized.length) {
+        const names = sized.slice(0,5).map(r => `**${r.name}** (${r.city||""})`).join(", ");
+        return `Largest congregations include: ${names}.`;
+      }
+    }
+  }
+
+  // Oldest / first / earliest
+  if (/\b(oldest|earliest|first)\b/.test(ql)) {
+    const term = findTerm(ql);
+    let pool = INSTITUTIONS.filter(r => r.founded);
+    if (term) pool = applyTermFilter(term, pool);
+    pool.sort((a,b) => a.founded - b.founded);
+    if (!pool.length) return "I don't have founding-year data for that group.";
+    const top = pool[0];
+    return `The oldest is **${top.name}** (founded **${top.founded}**, ${top.city||"Sarasota"}).`;
+  }
+
+  // Newest
+  if (/\b(newest|youngest|most recent)\b/.test(ql)) {
+    const term = findTerm(ql);
+    let pool = INSTITUTIONS.filter(r => r.founded);
+    if (term) pool = applyTermFilter(term, pool);
+    pool.sort((a,b) => b.founded - a.founded);
+    if (!pool.length) return "I don't have founding-year data for that group.";
+    const top = pool[0];
+    return `The newest with a known founding date is **${top.name}** (founded **${top.founded}**, ${top.city||"Sarasota"}).`;
+  }
+
+  // Where is …
+  if (/^where(\s+is|'s)\b/.test(ql) || /^find\b/.test(ql) || /^locate\b/.test(ql)) {
+    const cleaned = ql.replace(/^(where(\s+is|'s)|find|locate)\s+/i, "").replace(/^the\s+/i,"").trim();
+    let matches = INSTITUTIONS.filter(r => r.name.toLowerCase().includes(cleaned));
+    if (!matches.length) {
+      const term = findTerm(cleaned);
+      if (term) matches = applyTermFilter(term, INSTITUTIONS);
+    }
+    if (!matches.length) return "I couldn't find a place matching that.";
+    if (matches.length === 1) {
+      const r = matches[0];
+      const nbhd = neighborhoodFor(r);
+      const addr = r.address ? `${r.address}, ${r.city||""} ${r.zip||""}`.trim() : (r.city||"Sarasota");
+      return `**${r.name}** — ${addr}${nbhd ? ` (${nbhd})` : ""}.`;
+    }
+    const names = matches.slice(0,8).map(r => `**${r.name}**${r.city && r.city !== "Sarasota" ? ` (${r.city})` : ""}`).join("; ");
+    return `Found **${matches.length}** matches: ${names}${matches.length > 8 ? "…" : ""}.`;
+  }
+
+  // List / show me
+  if (/^(list|show me|show all|what (are|is)|name)\b/.test(ql) || /\ball (the )?\w+/.test(ql)) {
+    const term = findTerm(ql);
+    if (!term) return "What would you like me to list? E.g., 'list all mosques' or 'list Buddhist temples'.";
+    const matches = applyTermFilter(term, INSTITUTIONS);
+    if (!matches.length) return `I don't have any ${term.labelP} in the directory.`;
+    const names = matches.slice(0,15).map(r => `**${r.name}**${r.city && r.city !== "Sarasota" ? ` (${r.city})` : ""}`).join("; ");
+    return `**${matches.length}** ${term.labelP}: ${names}${matches.length > 15 ? "…" : "."}`;
+  }
+
+  // Count
+  if (/^(how many|count|number of)\b/.test(ql) || /\bhow many\b/.test(ql)) {
+    // Look for "X in Y" pattern
+    const inMatch = ql.match(/in\s+([a-z][a-z\s\u0027]+)$/i);
+    let cityFilter = null;
+    let cleaned = ql;
+    if (inMatch) {
+      const cityTerm = findTerm(inMatch[1].trim());
+      if (cityTerm && cityTerm.isCity) {
+        cityFilter = cityTerm;
+        cleaned = ql.slice(0, inMatch.index).trim();
+      }
+    }
+    const term = findTerm(cleaned);
+    let pool = INSTITUTIONS;
+    if (term) pool = applyTermFilter(term, pool);
+    if (cityFilter) pool = applyTermFilter(cityFilter, pool);
+    if (!term && !cityFilter) return `The directory has **${INSTITUTIONS.length}** institutions in total. Be more specific — e.g., 'how many Catholic churches' or 'how many places in Venice'.`;
+    const labelTerm = term || cityFilter;
+    let label = pool.length === 1 ? labelTerm.label : labelTerm.labelP;
+    let where = "";
+    if (cityFilter && term) where = ` in ${cityFilter.cityMatch}`;
+    return `**${pool.length}** ${label}${where}.`;
+  }
+
+  // Pinecraft special
+  if (/pinecraft|amish community/.test(ql)) {
+    const matches = INSTITUTIONS.filter(r => r.region === "Pinecraft" || /pinecraft|amish/i.test((r.notes||"")+" "+(r.denomination||"")));
+    return `**Pinecraft** is the historic Amish/Mennonite snowbird community along Bahia Vista Street, with ~3,000 seasonal residents (Nov–Apr). The directory lists **${matches.length}** congregations there: ${matches.map(r=>`**${r.name}**`).join(", ")}.`;
+  }
+
+  // Search by name or notes fallback
+  const matches = INSTITUTIONS.filter(r =>
+    (r.name && r.name.toLowerCase().includes(ql)) ||
+    (r.notes && r.notes.toLowerCase().includes(ql)) ||
+    (r.denomination && r.denomination.toLowerCase().includes(ql))
+  );
+  if (matches.length === 1) {
+    const r = matches[0];
+    const addr = r.address ? `${r.address}, ${r.city||""} ${r.zip||""}`.trim() : (r.city||"Sarasota");
+    return `**${r.name}** — ${addr}.`;
+  }
+  if (matches.length > 1 && matches.length <= 12) {
+    const names = matches.map(r => `**${r.name}**`).join("; ");
+    return `Found ${matches.length} matches: ${names}.`;
+  }
+
+  // Try plain term
+  const term = findTerm(ql);
+  if (term) {
+    const m = applyTermFilter(term, INSTITUTIONS);
+    return `I found **${m.length}** ${m.length === 1 ? term.label : term.labelP}. Ask 'list all ${term.keys[0]}s' to see them.`;
+  }
+
+  return "I'm not sure how to answer that yet. Try: 'how many Catholic churches', 'which neighborhood has the most', 'oldest synagogue', or 'where is the Hindu temple'.";
+}
+
+// === CHAT UI WIRING ===
+const chatFab = document.getElementById("chat-fab");
+const chatPanel = document.getElementById("chat-panel");
+const chatBody = document.getElementById("chat-body");
+const chatForm = document.getElementById("chat-form");
+const chatText = document.getElementById("chat-text");
+
+function openChat() { chatPanel.classList.add("open"); chatFab.classList.add("hidden"); setTimeout(()=>chatText.focus(), 200); }
+function closeChat() { chatPanel.classList.remove("open"); chatFab.classList.remove("hidden"); }
+
+chatFab.addEventListener("click", openChat);
+document.getElementById("chat-close").addEventListener("click", closeChat);
+
+function appendMsg(text, who) {
+  const el = document.createElement("div");
+  el.className = "chat-msg " + who;
+  el.innerHTML = md(text);
+  chatBody.appendChild(el);
+  chatBody.scrollTop = chatBody.scrollHeight;
+}
+
+function ask(text) {
+  if (!text.trim()) return;
+  appendMsg(escapeHtml(text), "user");
+  const resp = chatAnswer(text);
+  setTimeout(() => appendMsg(resp, "bot"), 220);
+}
+
+chatForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const v = chatText.value;
+  chatText.value = "";
+  ask(v);
+});
+
+document.querySelectorAll(".chat-chip").forEach(b => {
+  b.addEventListener("click", () => ask(b.dataset.q));
+});
+
+// === Boot ===
+buildTree();
+renderTiles();
+renderMarkers();
+</script>
+</body>
+</html>

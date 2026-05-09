@@ -1,0 +1,265 @@
+SUMMARY:
+  total: 20 institutions
+  by_city:
+    Venice: 7
+    North Port: 8
+    Englewood: 5
+  notes:
+    - "Venice's Catholic parish is Epiphany Cathedral — the seat of the Diocese of Venice"
+    - "No separate 'First UMC of Venice' — Grace UMC is the primary Methodist congregation"
+    - "ZIP 34211/34202 (Lakewood Ranch) often falls in Manatee County — confirm county before including"
+
+venice:
+  - name: "Epiphany Cathedral"
+    tradition: Christianity
+    denomination: "Roman Catholic"
+    sub_denomination: "Diocese of Venice (Cathedral / Seat of Diocese)"
+    address: "310 Sarasota St"
+    city: "Venice"
+    zip: "34285"
+    county: "Sarasota"
+    lat: 27.0998
+    lng: -82.4521
+    phone: "(941) 484-3505"
+    website: "https://www.epiphanycathedral.org/"
+    leader_title: "Rector"
+    size_estimate: "Large - Cathedral parish"
+    sources:
+      - "https://www.epiphanycathedral.org/"
+
+  - name: "St. Mark's Episcopal Church"
+    tradition: Christianity
+    denomination: "Episcopal"
+    sub_denomination: "Diocese of Southwest Florida"
+    address: "508 Riviera St"
+    city: "Venice"
+    zip: "34285"
+    county: "Sarasota"
+    phone: "(941) 488-7714"
+    website: "https://stmarksvenice.org/"
+    leader: "Fr. Mike"
+    leader_title: "Rector"
+    notes: "Office mailing: 513 Nassau Street S. Fr. Mike began as Rector January 2021."
+    sources:
+      - "https://stmarksvenice.org/about/clergy/"
+
+  - name: "Venice Presbyterian Church"
+    tradition: Christianity
+    denomination: "Presbyterian (PCUSA)"
+    address: "825 The Rialto"
+    city: "Venice"
+    zip: "34285"
+    county: "Sarasota"
+    phone: "(941) 488-2258"
+    website: "https://www.venicepres.org"
+    leader: "Chris Romig"
+    leader_title: "Pastor"
+    sources:
+      - "https://www.venicepres.org"
+
+  - name: "Grace United Methodist Church"
+    tradition: Christianity
+    denomination: "United Methodist"
+    city: "Venice"
+    county: "Sarasota"
+    website: "https://christvenice.com/"
+    leader: "Daryl Allen"
+    leader_title: "Senior Pastor"
+    notes: "Primary active UMC in Venice; First UMC consolidated."
+    sources:
+      - "https://www.flumc.org/churchdetail/637535"
+
+  - name: "Lakeside Lutheran Church"
+    tradition: Christianity
+    denomination: "Lutheran (LCMS)"
+    address: "2401 S Tamiami Trail"
+    city: "Venice"
+    zip: "34293"
+    county: "Sarasota"
+    phone: "(941) 493-5102"
+    website: "https://lakesidelutheran.net/"
+    leader: "Rev. David J. Dahlke"
+    leader_title: "Pastor"
+    sources:
+      - "https://lakesidelutheran.net/"
+
+  - name: "Emmanuel Lutheran Church"
+    tradition: Christianity
+    denomination: "Lutheran (ELCA)"
+    address: "790 Tamiami Trail S"
+    city: "Venice"
+    zip: "34285"
+    county: "Sarasota"
+    leader: "Rob Hall"
+    leader_title: "Pastor"
+    sources:
+      - "https://www.visitvenicefl.org/places/emmanuel-lutheran-church/"
+
+  - name: "First Baptist Church of Venice"
+    tradition: Christianity
+    denomination: "Baptist (SBC)"
+    address: "312 Miami Ave W"
+    city: "Venice"
+    zip: "34285"
+    county: "Sarasota"
+    website: "https://fbcvenice.org/"
+    leader: "Tom Hodge"
+    leader_title: "Senior Pastor"
+    size_estimate: "Large - operates two campuses"
+    notes: "Lakefront Campus at 3100 Executive Dr, Venice 34292."
+    sources:
+      - "https://fbcvenice.org/"
+
+north_port:
+  - name: "San Pedro Catholic Church"
+    tradition: Christianity
+    denomination: "Roman Catholic"
+    sub_denomination: "Diocese of Venice"
+    address: "14380 Tamiami Trail"
+    city: "North Port"
+    zip: "34287"
+    county: "Sarasota"
+    phone: "(941) 426-2500"
+    website: "https://sanpedrocc.org/"
+    leader: "Fr. Thomas Carzon, OMV"
+    leader_title: "Pastor"
+    notes: "Largest Catholic parish in North Port; pastor installed Sept 2022."
+    sources:
+      - "https://sanpedrocc.org/"
+
+  - name: "Trinity United Methodist Church of North Port"
+    tradition: Christianity
+    denomination: "United Methodist"
+    address: "4285 Wesley Ln"
+    city: "North Port"
+    zip: "34287"
+    county: "Sarasota"
+    phone: "(941) 426-1734"
+    website: "https://www.trinitychurchnorthport.com/"
+    leader: "Dottie Johns"
+    leader_title: "Senior Pastor"
+    service_times: "Traditional Worship 9:00 AM"
+    sources:
+      - "https://www.trinitychurchnorthport.com/"
+
+  - name: "First Presbyterian Church of North Port"
+    tradition: Christianity
+    denomination: "Presbyterian (PCA)"
+    address: "5600 S Biscayne Dr"
+    city: "North Port"
+    zip: "34287"
+    county: "Sarasota"
+    sources:
+      - "https://peaceriverpresbytery.org/find-a-church/"
+
+  - name: "St. Paul's Presbyterian Church"
+    tradition: Christianity
+    denomination: "Presbyterian"
+    address: "12497 Tamiami Trail S, Unit D"
+    city: "North Port"
+    zip: "34287"
+    county: "Sarasota"
+    website: "https://stpaulspres.com/"
+    sources:
+      - "https://stpaulspres.com/"
+
+  - name: "First Baptist Church of North Port"
+    tradition: Christianity
+    denomination: "Baptist (SBC)"
+    address: "8000 Dorothy Ave"
+    city: "North Port"
+    zip: "34287"
+    county: "Sarasota"
+    website: "https://www.fbcnorthport.org/"
+    sources:
+      - "https://www.fbcnorthport.org/"
+
+  - name: "Gulf Coast Church"
+    tradition: Christianity
+    denomination: "Non-denominational / Assemblies of God"
+    city: "North Port"
+    county: "Sarasota"
+    website: "https://gcc.churchtrac.com/"
+    service_times: "Sunday 9:30 AM"
+    notes: "Formerly Gulf Coast Assembly of God."
+    sources:
+      - "https://gcc.churchtrac.com/"
+
+  - name: "Freedom Bible Church"
+    tradition: Christianity
+    denomination: "Non-denominational"
+    city: "North Port"
+    county: "Sarasota"
+    website: "https://freedombiblechurch.com/"
+    notes: "Serves North Port, Wellen Park, Port Charlotte, West Port, Venice."
+    sources:
+      - "https://freedombiblechurch.com/"
+
+  - name: "North Port Community UCC"
+    tradition: Christianity
+    denomination: "United Church of Christ"
+    city: "North Port"
+    county: "Sarasota"
+    website: "https://www.northportucc.org/"
+    sources:
+      - "https://www.northportucc.org/"
+
+englewood:
+  - name: "St. Raphael Catholic Church"
+    tradition: Christianity
+    denomination: "Roman Catholic"
+    sub_denomination: "Diocese of Venice"
+    address: "770 Kilbourne Ave"
+    city: "Englewood"
+    zip: "34223"
+    county: "Sarasota"
+    sources:
+      - "https://gcatholic.org/churches/usa-14/23422.htm"
+
+  - name: "Englewood United Methodist Church"
+    tradition: Christianity
+    denomination: "United Methodist"
+    address: "700 E Dearborn St"
+    city: "Englewood"
+    zip: "34223"
+    county: "Sarasota"
+    phone: "(941) 474-5588"
+    website: "https://www.englewoodmethodist.com/"
+    sources:
+      - "https://www.englewoodmethodist.com/"
+
+  - name: "St. David's Episcopal Church"
+    tradition: Christianity
+    denomination: "Episcopal"
+    sub_denomination: "Diocese of Southwest Florida"
+    address: "401 S Broadway"
+    city: "Englewood"
+    zip: "34223"
+    county: "Sarasota"
+    phone: "(941) 474-3140"
+    website: "https://www.stdavidsenglewood.org/"
+    sources:
+      - "https://www.stdavidsenglewood.org/"
+
+  - name: "First Baptist Church Englewood"
+    tradition: Christianity
+    denomination: "Baptist (SBC)"
+    address: "278 S Mango St"
+    city: "Englewood"
+    zip: "34223"
+    county: "Sarasota"
+    phone: "(941) 474-2473"
+    leader: "John Cates"
+    service_times: "Sunday 10:30 AM"
+    sources:
+      - "http://www.firstbaptistenglewood.com/index.html"
+
+  - name: "Redeemer Lutheran Church"
+    tradition: Christianity
+    denomination: "Lutheran (LCMS)"
+    city: "Englewood"
+    zip: "34223"
+    county: "Sarasota"
+    website: "https://www.redeemerfl.com/"
+    sources:
+      - "https://www.redeemerfl.com/"
